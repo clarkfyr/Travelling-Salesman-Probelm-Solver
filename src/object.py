@@ -1,5 +1,6 @@
 import numpy as np
 import pdb
+import copy
 
 class Vertex:
     def __init__(self, index, value):
@@ -13,28 +14,29 @@ class Vertex:
     def has_child(self, v):
         return v.index in self.neighbors
 
+class dummyVertex(Vertex):
+    def __init__(self, index):
+        Vertex.__init__(self, index, 0)
+
+    def add_neighbor(self, index):
+        pass
+
+    def has_child(self, v):
+        return False
+
 class Graph:
     def __init__(self, filename):
         f = open(filename, "r")
-        self.size = int(f.readline().rstrip())
-        adj_list = []
-        for line in f:
-            adj_list.append(line.split())
-        self.adj_list = np.array(adj_list)
-        self.reversed = False
-        self.set_vertices()
-
-    def set_vertices(self):
+        n = int(f.readline().rstrip())
         i = 0 # Index of vertex
         self.vertices = []
         self.numE = 0
-        for row in self.adj_list:
-            # line = line.split()
-            # pdb.set_trace()
-            v = Vertex(i, int(row[i]))
+        for line in f:
+            line = line.split()
+            v = Vertex(i, int(line[i]))
             # Add neighbors
-            for j in range(self.size):
-                if j != i and (row[j] != 0 and row[j] != "0"):
+            for j in range(n):
+                if j != i and line[j] == '1':
                     v.add_neighbor(j)
                     self.numE += 1
             self.vertices.append(v)
@@ -51,6 +53,24 @@ class Graph:
             values = [self.vertices[i].value for i in path]
             score += sum(values) * len(values)
         return score
+
+    def delete_given_path(self, path):
+        g = copy.deepcopy(self)
+        vertices = g.vertices
+        for v in vertices:
+            if v.index in path:
+                vertices[v.index] = dummyVertex(v.index)
+            else:
+                for n in v.neighbors:
+                    if n in path:
+                        v.neighbors.remove(n)
+        return g
+
+    # def get_score_by_list(self, list_index):
+    #     score = 0
+    #     temp = list_index.pop(0)
+    #     temp_multiplier = 1
+    #     while len(list_index) != 0
 
 
 class Subproblem:

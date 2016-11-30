@@ -72,3 +72,12 @@ if __name__ == '__main__':
     print_path(path)
 
     print("--- %s seconds ---" % (time.time() - start_time))
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+>>>>>>> 595f8416fc1984a569ca8a358a2fb29e14a7f86c
