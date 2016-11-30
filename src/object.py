@@ -1,3 +1,5 @@
+import copy
+
 class Vertex:
     def __init__(self, index, value):
         self.index = index
@@ -13,6 +15,12 @@ class Vertex:
 class dummyVertex(Vertex):
     def __init__(self, index):
         Vertex.__init__(self, index, 0)
+
+    def add_neighbor(self, index):
+        pass
+
+    def has_child(self, v):
+        return False
 
 class Graph:
     def __init__(self, filename):
@@ -31,6 +39,17 @@ class Graph:
                     self.numE += 1
             self.vertices.append(v)
             i += 1
+    def delete_given_path(self, path):
+        g = copy.deepcopy(self)
+        vertices = g.vertices
+        for v in vertices:
+            if v.index in path:
+                vertices[v.index] = dummyVertex(v.index)
+            else:
+                for n in v.neighbors:
+                    if n in path:
+                        v.neighbors.remove(n)
+        return g
 
     # def get_score_by_list(self, list_index):
     #     score = 0

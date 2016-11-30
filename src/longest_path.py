@@ -60,18 +60,6 @@ def compute_score(graph, lists_of_pathes):
 def approximation_longest_path(graph):
 	pass
 
-def delete_given_path(graph, path):
-	g = copy.deepcopy(graph)
-	vertices = g.vertices
-	for v in vertices:
-		if v.index in path:
-			vertices[v.index] = object.dummyVertex(v.index)
-		else:
-			for n in v.neighbors:
-				if n in path:
-					v.neighbors.remove(n)
-	return g
-
 # find all fully connected
 if __name__ == '__main__':
     import time
