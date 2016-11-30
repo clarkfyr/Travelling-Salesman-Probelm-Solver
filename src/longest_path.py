@@ -64,7 +64,13 @@ def delete_given_path(graph, path):
 	g = copy.deepcopy(graph)
 	vertices = g.vertices
 	for v in vertices:
-		pass
+		if v.index in path:
+			vertices[v.index] = object.dummyVertex(v.index)
+		else:
+			for n in v.neighbors:
+				if n in path:
+					v.neighbors.remove(n)
+	return g
 
 # find all fully connected
 if __name__ == '__main__':
