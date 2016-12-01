@@ -3,11 +3,16 @@ import pdb
 import copy
 
 class SCC(object.Graph, object.Vertex):
-    def __init__(self, vertices):
+    # Instance attributes
+    # self.vertices: Inherited from Graph. vertices in this SCC
+    # self.neighbors: Inherited from Vertex. indices of neighbor vertices
+    # self.internals: indices of internal vertices
+    # self.parent_graph: parent_graph of this SCC
+    def __init__(self, g, vertices):
+        self.parent_graph = g
         self.vertices = vertices
         self.neighbors = []
         self.internals = []
-        self.scc_neighbors = []
         for vertex in self.vertices:
             self.internals.append(vertex.index)
             for neighbor in vertex.neighbors:
@@ -61,13 +66,14 @@ class DFS:
 
 # Transform a graph into a dag of SCC
 class DAG(object.Graph):
-
+    """
+    # Instance attributes
+    # self.sccs: list of SCCs in this graph
+    # self.scc_neighbors: list of SCC neighbors of SCCs. Similar format as self.neighbors
+    """
     def __init__(self, filename):
 
-        # Initialize a graph
-        # self.connected: whether this graph is connected
-        # self.sccs: list of SCC in this graph
-        # self.scc_neighbors: list of SCC neighbors of SCCs.
+
         object.Graph.__init__(self, filename)
 
         # Find all sccs
@@ -95,8 +101,6 @@ class DAG(object.Graph):
             removed_vertices = removed_vertices.union(scc_vertices)
             self.sccs.append(new_scc)
 
-
-
         # Index sccs
         self.sccs.reverse()
         for i in range(len(self.sccs)):
@@ -112,11 +116,14 @@ class DAG(object.Graph):
                         neighbors.append(self.locate_scc(vertex_neighbor))
             self.scc_neighbors.append(neighbors)
 
+
     def locate_scc(self, vertex_index):
+        """Given a index of a vertex, return the index of the SCC it belongs to"""
         for scc in self.sccs:
             if vertex_index in scc.internals:
                 return scc.index
         return -1
+
 
     def print_graph(self):
         for i in range(len(self.sccs)):
@@ -131,16 +138,12 @@ class DAG(object.Graph):
             line += ", ".join(list(map(str, self.sccs[i].internals)))
             print(line)
 
-    # Return if the original graph is a dag or not
     def is_dag(self):
+        """Return if the original graph is a dag or not"""
         return len(self.sccs) == len(self.vertices)
 
-
-    # Miss Dong's algorithm on how to compute max in a dag
-    # User should make sure that this function is only called on
-    # a dag.
-    # User is_dag to check if a graph is a dag
-    def partition(self):
+    def solve(self):
+        """solve a dag"""
         sub = [[[0, []] for _ in range(self.size)] for _ in range(self.size)]
         for i in range(self.size):
             sub[i][i][0] = self.vertices[i].value
@@ -176,7 +179,7 @@ if __name__ == '__main__':
 
     g = DAG("../final_inputs/25.in")
     g.print_graph()
-    sol = g.partition()
+    sol = g.solve()
     print(sol[0])
     print(sol[1])
 

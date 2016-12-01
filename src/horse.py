@@ -1,10 +1,6 @@
 import object
 import copy
-<<<<<<< HEAD
-import pdb
-=======
 
->>>>>>> 595f8416fc1984a569ca8a358a2fb29e14a7f86c
 def horse(graph):
     vertices = graph.vertices
     all_path = []
@@ -17,15 +13,11 @@ def horse(graph):
     # Prune: find the sources of this graph
     sources = []
     for v in vertices:
-<<<<<<< HEAD
-        if v.neighbors:
-=======
         is_source = True
         for u in vertices:
             if v.index in u.neighbors:
                 is_source = False
         if is_source:
->>>>>>> 595f8416fc1984a569ca8a358a2fb29e14a7f86c
             sources.append(v)
     if not sources:
         sources = vertices
@@ -36,10 +28,7 @@ def horse(graph):
         prevProblems = [object.Subproblem(v, v, set([v]), [[v]], v.value)]
 
         for s in range(2, len(vertices) + 1):
-<<<<<<< HEAD
-=======
             print v.index, s
->>>>>>> 595f8416fc1984a569ca8a358a2fb29e14a7f86c
             # Create all subproblems with size s
             problems = []
             for prev in prevProblems:
@@ -90,15 +79,6 @@ def print_path(path):
 # Test
 if __name__ == '__main__':
     import time
-<<<<<<< HEAD
-    start_time = time.time()
-
-    g = object.Graph("../final_inputs/25.in")
-    path = horse(g)
-    print_path(path)
-
-    print("--- %s seconds ---" % (time.time() - start_time))
-=======
     hard = [56, 57, 163, 254, 325, 364, 405, 441, 445, 454, 504, 507, 517]
     # easy = [19, 145, 155, 156, 164, 187, 188, 364, 422, 436, 507]
     easy = [62, 119]
@@ -106,11 +86,11 @@ if __name__ == '__main__':
     for i in easy:
         if i in hard:
             continue
-        
+
         try:
             g = object.Graph("../final_inputs/"+str(i)+".in")
             print "../final_inputs/"+str(i)+".in"
-            
+
             # if len(g.vertices) <= 20:
             start_time = time.time()
             path = horse(g)
@@ -123,9 +103,3 @@ if __name__ == '__main__':
             print(str(i) + " solved")
         except (IndexError):
             print(str(i) + " error")
-
-
-
-
-
->>>>>>> 595f8416fc1984a569ca8a358a2fb29e14a7f86c

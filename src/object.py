@@ -24,6 +24,7 @@ class dummyVertex(Vertex):
     def has_child(self, v):
         return False
 
+# Graph is changed but functionalities should remain
 class Graph:
     def __init__(self, filename):
         f = open(filename, "r")
