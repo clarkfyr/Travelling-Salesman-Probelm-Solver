@@ -189,12 +189,34 @@ class DAG(object.Graph):
 # Test
 if __name__ == '__main__':
     import time
-    start_time = time.time()
+    # start_time = time.time()
 
-    g = DAG("./result.txt")
-    g.print_graph()
-    sol = g.solve()
-    print(sol[0])
-    print(sol[1])
+    # g = DAG("./result.txt")
+    # g.print_graph()
+    # sol = g.solve()
+    # print(sol[0])
+    # print(sol[1])
 
-    print("--- %s seconds ---" % (time.time() - start_time))
+    # print("--- %s seconds ---" % (time.time() - start_time))
+    result = open('dag_exact_soln.txt', "w")
+    for i in range(1, 601):
+        # if i in hard or i in easy or i in moderate:
+        #   continue
+        try:
+            g = object.Graph("../final_inputs/"+str(i)+".in")
+            if len(g.vertices) in range(301, 401):
+                start_time = time.time()
+                print str(i)+".in"
+                g = DAG("../final_inputs/"+str(i)+".in")
+                print("--- %s seconds to process DAG ---" % (time.time() - start_time))
+                if g.is_dag():
+                    print str(i)+" is a DAG"
+                    start_time = time.time()
+                    soln = g.solve()[1]
+                    result.write(str(i) + ". " + str(soln))
+                    result.write("\n")
+                    print("--- %s seconds to solve DAG---" % (time.time() - start_time))
+        except (IOError):
+            pass
+        except (IndexError):
+            pass
