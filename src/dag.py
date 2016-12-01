@@ -1,6 +1,8 @@
 import object
 import pdb
 import copy
+from joblib import Parallel, delayed
+import multiprocessing
 
 class SCC(object.Graph, object.Vertex):
     # Instance attributes
@@ -163,7 +165,7 @@ class DAG(object.Graph):
             sub[i][i][0] = self.vertices[i].value
             sub[i][i][1].append([self.vertices[i].index])
         for m in range(1, self.size):
-            print m
+            print(m)
             # pdb.set_trace()
             sub_range = list(range(m))
             sub_range.reverse()
@@ -188,6 +190,28 @@ class DAG(object.Graph):
         return sub[0][self.size - 1]
 
 # Test
+
+def run(i):
+    try:
+        start_time = time.time()
+        g = DAG("../inputs/unsolved/"+str(i)+".in")
+        print(str(i)+".in")
+        print("--- %s seconds to process DAG ---" % (time.time() - start_time))
+        for scc in g.sccs:
+            print("----------- # %s SCC -------------" % (scc.index))
+            for v in scc.vertices:
+                print(v.index)
+            print("In vertices: ")
+            for v in scc.in_vertices:
+                print(v.index)
+            print("Out vertices: ")
+            for v in scc.out_vertices:
+                print(v.index)
+    except (IOError):
+        pass
+    except (IndexError):
+        pass
+
 if __name__ == '__main__':
     import time
     # start_time = time.time()
@@ -199,25 +223,6 @@ if __name__ == '__main__':
     # print(sol[1])
 
     # print("--- %s seconds ---" % (time.time() - start_time))
-    for i in range(65, 66):
-        # if i in hard or i in easy or i in moderate:
-        #   continue
-        try:
-            start_time = time.time()
-            g = DAG("../inputs/unsolved/"+str(i)+".in")
-            print str(i)+".in"
-            print("--- %s seconds to process DAG ---" % (time.time() - start_time))
-            for scc in g.sccs:
-                print("----------- # %s SCC -------------" % (scc.index))
-                for v in scc.vertices:
-                    print(v.index) 
-                print "In vertices: "
-                for v in scc.in_vertices:
-                    print v.index
-                print "Out vertices: " 
-                for v in scc.out_vertices:
-                    print v.index
-        except (IOError):
-            pass
-        except (IndexError):
-            pass
+
+    num_cores = multiprocessing.cpu_count()
+    Parallel(n_jobs=num_cores)(delayed(run)(i) for i in range(65, 66))
