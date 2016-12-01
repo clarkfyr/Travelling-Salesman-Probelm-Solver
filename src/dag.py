@@ -189,6 +189,15 @@ class DAG(object.Graph):
 # Test
 if __name__ == '__main__':
     import time
+    # start_time = time.time()
+
+    # g = DAG("./result.txt")
+    # g.print_graph()
+    # sol = g.solve()
+    # print(sol[0])
+    # print(sol[1])
+
+    # print("--- %s seconds ---" % (time.time() - start_time))
     result = open('dag_exact_soln.txt', "w")
     for i in range(1, 601):
         # if i in hard or i in easy or i in moderate:
