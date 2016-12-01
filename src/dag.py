@@ -10,7 +10,6 @@ class SCC(object.Graph, object.Vertex):
     # self.in_vertices: Indices of vertices with in coming edges
     # self.out_vertices: Indices of vertices with out going edges
     def __init__(self, vertices):
-        self.parent_graph = g
         self.vertices = vertices
         self.neighbors = []
         self.internals = []
