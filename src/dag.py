@@ -7,17 +7,32 @@ class SCC(object.Graph, object.Vertex):
     # self.vertices: Inherited from Graph. vertices in this SCC
     # self.neighbors: Inherited from Vertex. indices of neighbor vertices
     # self.internals: indices of internal vertices
-    # self.parent_graph: parent_graph of this SCC
-    def __init__(self, g, vertices):
+    # self.in_vertices: Indices of vertices with in coming edges
+    # self.out_vertices: Indices of vertices with out going edges
+    def __init__(self, vertices):
         self.parent_graph = g
         self.vertices = vertices
         self.neighbors = []
         self.internals = []
+        self.parent_graph = None
+        self.in_vertices = []
+        self.out_vertices = []
         for vertex in self.vertices:
             self.internals.append(vertex.index)
             for neighbor in vertex.neighbors:
                 if (neighbor not in self.vertices and neighbor not in self.neighbors):
                     self.neighbors.append(neighbor)
+
+    def set_in_and_out(self, g):
+        """set in/out vertices a SCC"""
+        for vertex in self.vertices:
+            for neighbor in vertex.neighbors:
+                if (neighbor not in self.internals):
+                    self.in_vertices.append(neighbor)
+        for vertex in g.vertices:
+            if (vertex.index not in self.internals):
+                self.out_vertices.append(vertex.index)
+
 
 # Helper class for doing DFS on a graph
 class DFS:
