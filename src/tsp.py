@@ -1,7 +1,7 @@
 import object
 import copy
 
-def horse(graph):
+def tsp(graph):
     vertices = graph.vertices
     all_path = []
     # Zero Edge Situation
@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
             # if len(g.vertices) <= 20:
             start_time = time.time()
-            path = horse(g)
+            path = tsp(g)
             p = print_path(path)
             result.write(str(i) + ". " + str(p))
             result.write("\n")
