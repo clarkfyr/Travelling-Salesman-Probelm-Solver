@@ -82,7 +82,8 @@ def highest_single_path(graph):
 
 def greedy_highest_path_approximation(graph):
 	"""use greedy algs to find an approximating path"""
-	pass
+	def helper(prev_graph, prev_path):
+		pass
 
 if __name__ == '__main__':
     import time
