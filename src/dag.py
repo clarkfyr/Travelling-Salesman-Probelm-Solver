@@ -199,24 +199,36 @@ if __name__ == '__main__':
     # print(sol[1])
 
     # print("--- %s seconds ---" % (time.time() - start_time))
-    for i in range(65, 66):
+    # possible_error = [91, 92, 93, 138, 151, 152, 153, 253, 398, 590]
+    result = open("disconnected_files.txt", "w")
+
+    for i in range(5, 601):
+    # for i in possible_error:
         # if i in hard or i in easy or i in moderate:
         #   continue
         try:
+            print str(i)+".in"
             start_time = time.time()
             g = DAG("../inputs/unsolved/"+str(i)+".in")
-            print str(i)+".in"
             print("--- %s seconds to process DAG ---" % (time.time() - start_time))
-            for scc in g.sccs:
-                print("----------- # %s SCC -------------" % (scc.index))
-                for v in scc.vertices:
-                    print(v.index) 
-                print "In vertices: "
-                for v in scc.in_vertices:
-                    print v.index
-                print "Out vertices: " 
-                for v in scc.out_vertices:
-                    print v.index
+            # if g.is_dag():
+            #     start_time = time.time()
+            #     sol = g.solve()[1]
+            #     print sol
+            #     print("--- %s seconds to solve DAG ---" % (time.time() - start_time))
+            if len(g.sccs) * 30 >= len(g.vertices):
+                result.write(str(i)+ ": "+ str(len(g.sccs)) + " SCCs")
+                result.write("\n")
+                for scc in g.sccs:
+                    print("----------- # %s SCC -------------" % (scc.index))
+                    for v in scc.vertices:
+                        print(v.index) 
+                    print "In vertices: "
+                    for v in scc.in_vertices:
+                        print v.index
+                    print "Out vertices: " 
+                    for v in scc.out_vertices:
+                        print v.index
         except (IOError):
             pass
         except (IndexError):

@@ -82,14 +82,15 @@ if __name__ == '__main__':
     hard = [56, 57, 163, 254, 325, 364, 405, 441, 445, 454, 504, 507, 517]
     # easy = [19, 145, 155, 156, 164, 187, 188, 364, 422, 436, 507]
     easy = [62, 119]
+    possible_error = [193]
     result = open('result.txt', "w")
-    for i in easy:
+    for i in possible_error:
         if i in hard:
             continue
 
         try:
-            g = object.Graph("../final_inputs/"+str(i)+".in")
-            print "../final_inputs/"+str(i)+".in"
+            g = object.Graph("../inputs/unsolved/"+str(i)+".in")
+            print str(i)+".in"
 
             # if len(g.vertices) <= 20:
             start_time = time.time()
@@ -97,9 +98,6 @@ if __name__ == '__main__':
             p = print_path(path)
             result.write(str(i) + ". " + str(p))
             result.write("\n")
-
             print("--- %s seconds ---" % (time.time() - start_time))
         except (IOError):
             print(str(i) + " solved")
-        except (IndexError):
-            print(str(i) + " error")
