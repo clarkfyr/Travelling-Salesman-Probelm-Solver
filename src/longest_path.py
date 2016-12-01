@@ -113,22 +113,14 @@ def greedy_highest_path_approximation(graph):
 if __name__ == '__main__':
     import time
     result = open('highest_single_path_approximation.txt', "w")
-    hard = [4, 6, 10, 16, 17, 20, 22, 34, 35, 51, 53, 56, 57, 58, 59, 81, 89, \
-    109, 111, 114, 115, 116, 117, 124, 125, 140, 141, 147, 154, 160, 162, 163, 172, 173, 174, 180, 184, 187, 189, \
-    233, 235, 236, 237, 241, 242, 243, 245, 246, 250, 252, 254, 260, 277, 281, 285, 292, 293, 295, 296, \
-    302, 313, 314, 315, 317, 318, 320, 325, 340, 341, 342, 349, \
-    358, 359, 360, 361, 363, 364, 365, 373, 374, 376, 377, 382, 383, 384, 391, 393, \
-    400, 401, 405, 410, 411, 424, 425, 440, 441, 445, 446, 447, \
-    454, 455, 457, 459, 466, 470, 476, 481, 482, 490, 491, 494, 495, \
-    503, 504, 512, 513, 514, 532, 533, 549, 559, 566, 567, 572, 577, 579, 586, 592, 594]
 
     for i in range(1, 601):
     	# if i in hard or i in easy or i in moderate:
     	# 	continue
         try:
-            g = object.Graph("../final_inputs/"+str(i)+".in")
+            g = object.Graph("../inputs/unsolved/"+str(i)+".in")
             print str(i)+".in"
-            if len(g.vertices) <= 500:
+            if len(g.vertices) <= 50:
 	            start_time = time.time()
 	            path = greedy_highest_path_approximation(g)
 	            print path
