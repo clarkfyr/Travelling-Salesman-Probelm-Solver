@@ -163,6 +163,7 @@ class DAG(object.Graph):
             sub[i][i][0] = self.vertices[i].value
             sub[i][i][1].append([self.vertices[i].index])
         for m in range(1, self.size):
+            print m
             # pdb.set_trace()
             sub_range = list(range(m))
             sub_range.reverse()
@@ -199,12 +200,12 @@ if __name__ == '__main__':
 
     # print("--- %s seconds ---" % (time.time() - start_time))
     result = open('dag_exact_soln.txt', "w")
-    for i in range(1, 601):
+    for i in range(65, 66):
         # if i in hard or i in easy or i in moderate:
         #   continue
         try:
             g = object.Graph("../final_inputs/"+str(i)+".in")
-            if len(g.vertices) in range(301, 401):
+            if len(g.vertices) in range(401, 501):
                 start_time = time.time()
                 print str(i)+".in"
                 g = DAG("../final_inputs/"+str(i)+".in")

@@ -63,17 +63,17 @@ class Graph:
             self.vertices.append(v)
             i += 1
 
-    def delete_given_path(self, path):
-        g = copy.deepcopy(self)
-        vertices = g.vertices
-        for v in vertices:
-            if v.index in path:
-                vertices[v.index] = dummyVertex(v.index)
-            else:
-                for n in v.neighbors:
-                    if n in path:
-                        v.neighbors.remove(n)
-        return g
+def delete_given_path(graph, path):
+    g = copy.deepcopy(graph)
+    vertices = g.vertices
+    for v in vertices:
+        if v.index in path:
+            vertices[v.index] = dummyVertex(v.index)
+        else:
+            for n in v.neighbors:
+                if n in path:
+                    v.neighbors.remove(n)
+    return g
 
     # def get_score_by_list(self, list_index):
     #     score = 0
