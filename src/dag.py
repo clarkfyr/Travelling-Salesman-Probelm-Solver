@@ -1,6 +1,8 @@
 import object
 import pdb
 import copy
+from joblib import Parallel, delayed
+import multiprocessing
 
 class SCC(object.Graph, object.Vertex):
     # Instance attributes
@@ -9,21 +11,28 @@ class SCC(object.Graph, object.Vertex):
     # self.internals: indices of internal vertices
     # self.in_vertices: Indices of vertices with in coming edges
     # self.out_vertices: Indices of vertices with out going edges
-    def __init__(self, vertices):
+    def __init__(self, g, vertices):
         self.vertices = vertices
         self.neighbors = []
         self.internals = []
         self.parent_graph = None
         self.in_vertices = []
         self.out_vertices = []
+        self.numEdge = 0
+
+        # Find the neighbor vertices and internal vertices of SCC
         for vertex in self.vertices:
             self.internals.append(vertex.index)
             for neighbor in vertex.neighbors:
                 if (neighbor not in self.vertices and neighbor not in self.neighbors):
                     self.neighbors.append(neighbor)
 
-    def set_in_and_out(self, g):
-        """set in/out vertices a SCC"""
+        # Find the number of edges inside a SCC
+        for vertex in self.vertices:
+            for neighbor in list(set().union(vertex.neighbors, self.internals)):
+                self.numEdge += 1
+
+        # Set in/out vertices a SCC
         for vertex in self.vertices:
             for neighbor in vertex.neighbors:
                 if (neighbor not in self.internals):
@@ -87,7 +96,6 @@ class DAG(object.Graph):
     """
     def __init__(self, filename):
 
-
         object.Graph.__init__(self, filename)
 
         # Find all sccs
@@ -111,7 +119,7 @@ class DAG(object.Graph):
             to_explore = [post_nums[i] for i in range(len(post_nums)) if i not in removed]
             scc_vertices = [vertex for vertex in self.vertices if vertex.index in scc_indices]
             scc_vertices = set(scc_vertices).difference(removed_vertices)
-            new_scc = SCC(list(scc_vertices))
+            new_scc = SCC(self, list(scc_vertices))
             removed_vertices = removed_vertices.union(scc_vertices)
             self.sccs.append(new_scc)
 
@@ -163,7 +171,7 @@ class DAG(object.Graph):
             sub[i][i][0] = self.vertices[i].value
             sub[i][i][1].append([self.vertices[i].index])
         for m in range(1, self.size):
-            print m
+            print(m)
             # pdb.set_trace()
             sub_range = list(range(m))
             sub_range.reverse()
@@ -187,18 +195,40 @@ class DAG(object.Graph):
                 sub[i][m] = [max_val, max_assignment]
         return sub[0][self.size - 1]
 
-# Test
+def run(i):
+    """main function for parallelized main"""
+    try:
+        start_time = time.time()
+        g = DAG("../inputs/unsolved/"+str(i)+".in")
+        print(str(i)+".in")
+        print("--- %s seconds to process DAG ---" % (time.time() - start_time))
+        for scc in g.sccs:
+            print("----------- # %s SCC -------------" % (scc.index))
+            for v in scc.vertices:
+                print(v.index)
+            print("In vertices: ")
+            for v in scc.in_vertices:
+                print(v.index)
+            print("Out vertices: ")
+            for v in scc.out_vertices:
+                print(v.index)
+    except (IOError):
+        pass
+    except (IndexError):
+        pass
+
 if __name__ == '__main__':
     import time
     # start_time = time.time()
-
-    # g = DAG("./result.txt")
+    #
+    # g = DAG("../inputs/dag_exact/25.in")
     # g.print_graph()
     # sol = g.solve()
     # print(sol[0])
     # print(sol[1])
-
+    #
     # print("--- %s seconds ---" % (time.time() - start_time))
+
     # possible_error = [91, 92, 93, 138, 151, 152, 153, 253, 398, 590]
     result = open("disconnected_files.txt", "w")
 
@@ -207,7 +237,7 @@ if __name__ == '__main__':
         # if i in hard or i in easy or i in moderate:
         #   continue
         try:
-            print str(i)+".in"
+            print(str(i)+".in")
             start_time = time.time()
             g = DAG("../inputs/unsolved/"+str(i)+".in")
             print("--- %s seconds to process DAG ---" % (time.time() - start_time))
@@ -222,14 +252,17 @@ if __name__ == '__main__':
                 for scc in g.sccs:
                     print("----------- # %s SCC -------------" % (scc.index))
                     for v in scc.vertices:
-                        print(v.index) 
-                    print "In vertices: "
+                        print(v.index)
+                    print("In vertices: ")
                     for v in scc.in_vertices:
-                        print v.index
-                    print "Out vertices: " 
+                        print(v.index)
+                    print("Out vertices: ")
                     for v in scc.out_vertices:
-                        print v.index
+                        print(v.index)
         except (IOError):
             pass
         except (IndexError):
             pass
+
+    # num_cores = multiprocessing.cpu_count()
+    # Parallel(n_jobs=num_cores)(delayed(run)(i) for i in range(65, 66))
