@@ -110,6 +110,35 @@ def greedy_highest_path_approximation(graph):
 			final = out
 	return score, final
 
+def get_longest_path_in_scc(graph, scc, s, t):
+	pass
+
+def modified_bfs_in_scc(graph, scc, s):
+	"""find longest path from s inside scc for given scc index"""
+	vertices = graph.vertices
+	dist = []
+	path = []
+	queue = []
+	for i in range(0, len(vertices)):
+		dist.append(-1)
+		path.append([])
+	queue.append([s, path[s]])
+	while len(queue) != 0:
+		prob = queue.pop(0)
+		if len(prob[1]) >= dist[prob[0]] and len(prob[1]) < len(vertices):
+			path[prob[0]] = prob[1]
+			dist[prob[0]] = len(prob[1])
+		for v in vertices[prob[0]].neighbors:
+			if v not in prob[1]:
+				new_path = copy.deepcopy(prob[1])
+				new_path.append(prob[0])
+				new_prob = [v, new_path]
+				queue.append(new_prob)
+	for i in range(0, len(vertices)):
+		if vertices[i].value != 0:
+			path[i].append(i)
+	return dist, path
+
 if __name__ == '__main__':
     import time
     result = open('highest_single_path_approximation.txt', "w")
