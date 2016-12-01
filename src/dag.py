@@ -177,7 +177,7 @@ if __name__ == '__main__':
     import time
     start_time = time.time()
 
-    g = DAG("../final_inputs/25.in")
+    g = DAG("./result.txt")
     g.print_graph()
     sol = g.solve()
     print(sol[0])
