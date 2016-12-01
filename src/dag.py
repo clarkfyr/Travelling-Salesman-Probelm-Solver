@@ -199,24 +199,24 @@ if __name__ == '__main__':
     # print(sol[1])
 
     # print("--- %s seconds ---" % (time.time() - start_time))
-    result = open('dag_exact_soln.txt', "w")
     for i in range(65, 66):
         # if i in hard or i in easy or i in moderate:
         #   continue
         try:
-            g = object.Graph("../final_inputs/"+str(i)+".in")
-            if len(g.vertices) in range(401, 501):
-                start_time = time.time()
-                print str(i)+".in"
-                g = DAG("../final_inputs/"+str(i)+".in")
-                print("--- %s seconds to process DAG ---" % (time.time() - start_time))
-                if g.is_dag():
-                    print str(i)+" is a DAG"
-                    start_time = time.time()
-                    soln = g.solve()[1]
-                    result.write(str(i) + ". " + str(soln))
-                    result.write("\n")
-                    print("--- %s seconds to solve DAG---" % (time.time() - start_time))
+            start_time = time.time()
+            g = DAG("../inputs/unsolved/"+str(i)+".in")
+            print str(i)+".in"
+            print("--- %s seconds to process DAG ---" % (time.time() - start_time))
+            for scc in g.sccs:
+                print("----------- # %s SCC -------------" % (scc.index))
+                for v in scc.vertices:
+                    print(v.index) 
+                print "In vertices: "
+                for v in scc.in_vertices:
+                    print v.index
+                print "Out vertices: " 
+                for v in scc.out_vertices:
+                    print v.index
         except (IOError):
             pass
         except (IndexError):
