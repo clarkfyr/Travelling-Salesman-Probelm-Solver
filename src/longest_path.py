@@ -46,16 +46,23 @@ def find_longest_path(graph, s, t):
 	dist_list, path_list = modified_bfs(graph, s)
 	return dist_list[t], path_list[t]
 
-def compute_score(graph, lists_of_pathes):
-	"""take in a graph and a list of pathes and compute the score
+def compute_score(graph, list_of_path):
+	"""take in a graph and a pathes and compute the score
 	under the assuption that the proposed soln is valid"""
 	vertices = graph.vertices
 	score = 0
 	base = 0
-	for v in lists_of_pathes:
+	for v in list_of_path:
 		base += vertices[v].value
-	score += base * len(lists_of_pathes)
+	score += base * len(list_of_path)
 	return score
+
+def compute_score_full_assignment(graph, paths):
+	"""take in a graph and a full assignment lists of pathes and compute the total score of the given soln"""
+	total = 0
+	for path in paths:
+		total += compute_score(graph, path)
+	return total
 
 def highest_single_path(graph):
 	"""greedily find the single path with highest score in a graph"""
@@ -74,6 +81,7 @@ def highest_single_path(graph):
 	return highest_score, highest_score_path
 
 def greedy_highest_path_approximation(graph):
+	"""use greedy algs to find an approximating path"""
 	pass
 
 if __name__ == '__main__':
