@@ -23,19 +23,20 @@ def modified_bfs(graph, s):
 				new_path.append(prob[0])
 				new_prob = [v, new_path]
 				queue.append(new_prob)
+	for i in range(0, len(vertices)):
+		if vertices[i].value != 0:
+			path[i].append(i)
 	return dist, path
 
 def find_fully_connected(graph):
 	"""find if there is a path that connect every vertex"""
 	vertices = graph.vertices
 	for i in range(0, len(vertices)):
-		print i
 		dist, path = modified_bfs(g, i)
 		if max(dist) == len(vertices) - 1:
 			for ind in range(0, len(dist)):
 				if dist[ind] == len(vertices) - 1:
 					result = copy.deepcopy(path[ind])
-					result.append(ind)
 					return result
 	return None
 
@@ -50,20 +51,34 @@ def compute_score(graph, lists_of_pathes):
 	under the assuption that the proposed soln is valid"""
 	vertices = graph.vertices
 	score = 0
-	for lst in lists_of_pathes:
-		base = 0
-		for v in lst:
-			base += vertices[v].value
-		score += base * len(lst)
+	base = 0
+	for v in lists_of_pathes:
+		base += vertices[v].value
+	score += base * len(lists_of_pathes)
 	return score
 
-def approximation_longest_path(graph):
+def highest_single_path(graph):
+	"""greedily find the single path with highest score in a graph"""
+	highest_score_path = []
+	highest_score = 0
+	for v in graph.vertices:
+		if v.value != 0:
+			paths = modified_bfs(graph, v.index)[1]
+			for p in paths:
+				score = compute_score(graph, p)
+				if score > highest_score:
+					highest_score_path = [p]
+					highest_score = score
+				elif score == highest_score:
+					highest_score_path.append(p)
+	return highest_score, highest_score_path
+
+def greedy_highest_path_approximation(graph):
 	pass
 
-# find all fully connected
 if __name__ == '__main__':
     import time
-    result = open('fully_connected.txt', "w")
+    result = open('highest_single_path_approximation.txt', "w")
     hard = [4, 6, 10, 16, 17, 20, 22, 34, 35, 51, 53, 56, 57, 58, 59, 81, 89, \
     109, 111, 114, 115, 116, 117, 124, 125, 140, 141, 147, 154, 160, 162, 163, 172, 173, 174, 180, 184, \
     233, 235, 236, 237, 241, 242, 243, 245, 246, 250, 252, 254, 260, 277, 281, 285, 292, 293, 295, 296, \
@@ -78,9 +93,9 @@ if __name__ == '__main__':
 
     easy = [62, 119]
 
-    for i in range(1, 601):
-    	if i in hard or i in easy or i in moderate:
-    		continue
+    for i in moderate:
+    	# if i in hard or i in easy or i in moderate:
+    	# 	continue
         try:
             g = object.Graph("../final_inputs/"+str(i)+".in")
             print str(i)+".in"
