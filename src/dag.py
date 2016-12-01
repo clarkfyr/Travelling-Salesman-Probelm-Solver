@@ -11,21 +11,28 @@ class SCC(object.Graph, object.Vertex):
     # self.internals: indices of internal vertices
     # self.in_vertices: Indices of vertices with in coming edges
     # self.out_vertices: Indices of vertices with out going edges
-    def __init__(self, vertices):
+    def __init__(self, g, vertices):
         self.vertices = vertices
         self.neighbors = []
         self.internals = []
         self.parent_graph = None
         self.in_vertices = []
         self.out_vertices = []
+        self.numEdge = 0
+
+        # Find the neighbor vertices and internal vertices of SCC
         for vertex in self.vertices:
             self.internals.append(vertex.index)
             for neighbor in vertex.neighbors:
                 if (neighbor not in self.vertices and neighbor not in self.neighbors):
                     self.neighbors.append(neighbor)
 
-    def set_in_and_out(self, g):
-        """set in/out vertices a SCC"""
+        # Find the number of edges inside a SCC
+        for vertex in self.vertices:
+            for neighbor in list(set().union(vertex.neighbors, self.internals)):
+                self.numEdge += 1
+
+        # Set in/out vertices a SCC
         for vertex in self.vertices:
             for neighbor in vertex.neighbors:
                 if (neighbor not in self.internals):
@@ -89,7 +96,6 @@ class DAG(object.Graph):
     """
     def __init__(self, filename):
 
-
         object.Graph.__init__(self, filename)
 
         # Find all sccs
@@ -113,7 +119,7 @@ class DAG(object.Graph):
             to_explore = [post_nums[i] for i in range(len(post_nums)) if i not in removed]
             scc_vertices = [vertex for vertex in self.vertices if vertex.index in scc_indices]
             scc_vertices = set(scc_vertices).difference(removed_vertices)
-            new_scc = SCC(list(scc_vertices))
+            new_scc = SCC(self, list(scc_vertices))
             removed_vertices = removed_vertices.union(scc_vertices)
             self.sccs.append(new_scc)
 
@@ -215,13 +221,13 @@ def run(i):
 if __name__ == '__main__':
     import time
     # start_time = time.time()
-
-    # g = DAG("./result.txt")
+    #
+    # g = DAG("../inputs/dag_exact/25.in")
     # g.print_graph()
     # sol = g.solve()
     # print(sol[0])
     # print(sol[1])
-
+    #
     # print("--- %s seconds ---" % (time.time() - start_time))
 
     num_cores = multiprocessing.cpu_count()
