@@ -36,6 +36,11 @@ class SCC(object.Graph, object.Vertex):
             for neighbor in list(set().union(vertex.neighbors, self.internals)):
                 self.numEdge += 1
 
+        # Set the neighbors of vertices to have only internal vertices
+        for vertex in self.vertices:
+            for neighbor in vertex.neighbors:
+                if (neighbor not in self.internals):
+                    vertex.neighbors.remove(neighbor)
 
         # Set in/out vertices a SCC
         out_vertices = set()
@@ -51,6 +56,14 @@ class SCC(object.Graph, object.Vertex):
                     in_vertices.add(vertex.index)
         self.in_vertices = list(in_vertices)
 
+class SubGraph(object.Graph):
+    """
+    Instance variables:
+    self.g: parent graph of this SubGraph
+    """
+    def __init__(self, g, vertices):
+        self.g = g
+        self.vertices = vertices
 
 # Helper class for doing DFS on a graph
 class DFS:
@@ -107,7 +120,13 @@ class DAG(object.Graph):
     def __init__(self, filename):
 
         object.Graph.__init__(self, filename)
+        self.sccs = []
+        self.scc_neighbors = []
+        self.sub_graphs = []
+        self._set_scc()
+        self._set_subgraph()
 
+    def _set_scc(self):
         # Find all sccs
         # Run DFS on GR
         self.reverse()
@@ -117,7 +136,7 @@ class DAG(object.Graph):
         self.reverse()
 
         # Explore in decreasing post number order
-        self.sccs = []
+
         to_explore = post_nums
         # indices of removed vertices
         removed = set()
@@ -139,17 +158,19 @@ class DAG(object.Graph):
             self.sccs[i].index = i
 
         # Find the neighbor sccs of all sccs
-        self.scc_neighbors = []
         for i in range(len(self.sccs)):
             neighbors = []
             for vertex in self.sccs[i].vertices:
                 for vertex_neighbor in vertex.neighbors:
                     if vertex_neighbor not in self.sccs[i].internals:
-                        neighbors.append(self.locate_scc(vertex_neighbor))
+                        neighbors.append(self._locate_scc(vertex_neighbor))
             self.scc_neighbors.append(neighbors)
 
+    def _set_subgraph(self):
+        self.undirected()
+        
 
-    def locate_scc(self, vertex_index):
+    def _locate_scc(self, vertex_index):
         """Given a index of a vertex, return the index of the SCC it belongs to"""
         for scc in self.sccs:
             if vertex_index in scc.internals:

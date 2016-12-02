@@ -26,21 +26,35 @@ class dummyVertex(Vertex):
 
 # Graph is changed but functionalities should remain
 class Graph:
+    """
+    Instance Variables:
+    self.adj_list: adjoint list of this graph, can be edited to suppport tweaks to the graph
+    self.adj_list_backup: original adjoint list of this graph. Used to restore the graph after tweaks
+    """
     def __init__(self, filename = None):
         if filename is not None:
             f = open(filename, "r")
             self.size = int(f.readline().rstrip())
             adj_list = []
             for line in f:
-                adj_list.append(line.split())
+                adj_list.append(int(line.split()))
             self.adj_list = np.array(adj_list)
-            self.reversed = False
-            self.set_vertices()
+            self.adj_list_backup = np.array(adj_list)
+            self._set_vertices()
 
+    # Reverse the graph
     def reverse(self):
-        self.reversed = True
         self.adj_list = self.adj_list.T
-        self.set_vertices()
+        self._set_vertices()
+
+    # Change graph to undirected
+    def undirected(self):
+        self.adj_list = self.adj_list + self.adj_list.T
+        self._set_vertices()
+
+    # Restore the original graph
+    def restore(self):
+        self._set_vertices(self.adj_list_backup)
 
     def cal_score(self, assignment):
         score = 0
@@ -49,17 +63,18 @@ class Graph:
             score += sum(values) * len(values)
         return score
 
-    def set_vertices(self):
+    # set the vertices after the adjoint list is changed/created.
+    def _set_vertices(self, adj_list = self.adj_list):
         i = 0 # Index of vertex
         self.vertices = []
         self.numE = 0
-        for row in self.adj_list:
+        for row in adj_list:
             # line = line.split()
             # pdb.set_trace()
             v = Vertex(i, int(row[i]))
             # Add neighbors
             for j in range(self.size):
-                if j != i and (row[j] != 0 and row[j] != "0"):
+                if j != i and row[j] != 0):
                     v.add_neighbor(j)
                     self.numE += 1
             self.vertices.append(v)
