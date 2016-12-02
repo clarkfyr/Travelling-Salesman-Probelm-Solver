@@ -118,6 +118,32 @@ class DFS:
                     stack.append(neighbor)
         return visited
 
+def delete_scc_given_path(graph, path):
+    if path == []:
+        return graph
+    g = copy.deepcopy(graph)
+    # pdb.set_trace()
+    vertices = g.vertices
+    # scc_index = g._locate_scc(path[0])
+    for v in vertices:
+        if v.index in path:
+            vertices[v.index] = object.dummyVertex(v.index)
+        else:
+            for n in v.neighbors:
+                if n in path:
+                    v.neighbors.remove(n)
+    for scc in g.sccs:
+        for v in scc.in_vertices:
+            if v in path:
+                scc.in_vertices.remove(v)
+        for v in scc.out_vertices:
+            if v in path:
+                scc.out_vertices.remove(v)
+        for v in scc.vertices:
+            if v.index in path:
+                scc.vertices.remove(v)
+    return g
+
 # Transform a graph into a dag of SCC
 class DAG(object.Graph):
     """
