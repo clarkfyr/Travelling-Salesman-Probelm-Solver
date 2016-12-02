@@ -176,13 +176,13 @@ def find_longest_among_longest(dag, scc, starts, ends):
 	start, end = None, None
 	for i in starts:
 		for j in ends:
-			path = lp.modified_bfs_in_scc(dag, scc, i)[1][j]
+			path = modified_bfs_in_scc(dag, scc, i)[1][j]
 			if not maxPath or len(maxPath) < len(path):
 				maxPath = path
 				start = i
 				end = j
 	return start, end, maxPath
-	
+
 # if __name__ == '__main__':
 #     import time
 #     result = open('highest_single_path_approximation.txt', "w")

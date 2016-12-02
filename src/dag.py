@@ -17,12 +17,12 @@ class SCC(object.Graph, object.Vertex):
     self.out_vertices: Indices of vertices with out going edges
     """
     def __init__(self, g, vertices, index):
-        self.vertices = vertices
+        self.vertices = vertices # Object
         self.neighbors = []
         self.internals = []
         self.parent_graph = None
-        self.in_vertices = []
-        self.out_vertices = []
+        self.in_vertices = [] # Index
+        self.out_vertices = [] # Index
         self.numEdge = 0
         self.g = g
         self.index = index
