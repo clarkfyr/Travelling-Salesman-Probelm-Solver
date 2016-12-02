@@ -1,8 +1,9 @@
 import object
 import pdb
 import copy
-from joblib import Parallel, delayed
-import multiprocessing
+import time
+# from joblib import Parallel, delayed
+# import multiprocessing
 
 class SCC(object.Graph, object.Vertex):
     """
@@ -21,6 +22,7 @@ class SCC(object.Graph, object.Vertex):
         self.in_vertices = []
         self.out_vertices = []
         self.numEdge = 0
+        self.g = g
 
         # Find the neighbor vertices and internal vertices of SCC
         for vertex in self.vertices:
@@ -44,9 +46,9 @@ class SCC(object.Graph, object.Vertex):
         self.out_vertices = list(out_vertices)
         in_vertices = set()
         for vertex in self.g.vertices:
-            for neighbor in vetex.neighbors:
+            for neighbor in vertex.neighbors:
                 if (neighbor in self.internals):
-                    in_vertices.add(vertex)
+                    in_vertices.add(vertex.index)
         self.in_vertices = list(in_vertices)
 
 
@@ -225,52 +227,47 @@ def run(i):
     except (IndexError):
         pass
 
-if __name__ == '__main__':
-    import time
-    # start_time = time.time()
-    #
-    # g = DAG("../inputs/dag_exact/25.in")
-    # g.print_graph()
-    # sol = g.solve()
-    # print(sol[0])
-    # print(sol[1])
-    #
-    # print("--- %s seconds ---" % (time.time() - start_time))
+def test_run():
+    g = DAG("../inputs/dag_exact/25.in")
+    sol = g.solve()
+    print(sol[1])
 
-    # possible_error = [91, 92, 93, 138, 151, 152, 153, 253, 398, 590]
-    result = open("disconnected_files.txt", "w")
-
-    for i in range(5, 601):
-    # for i in possible_error:
-        # if i in hard or i in easy or i in moderate:
-        #   continue
-        try:
-            print(str(i)+".in")
-            start_time = time.time()
-            g = DAG("../inputs/unsolved/"+str(i)+".in")
-            print("--- %s seconds to process DAG ---" % (time.time() - start_time))
-            # if g.is_dag():
-            #     start_time = time.time()
-            #     sol = g.solve()[1]
-            #     print sol
-            #     print("--- %s seconds to solve DAG ---" % (time.time() - start_time))
-            if len(g.sccs) * 30 >= len(g.vertices):
-                result.write(str(i)+ ": "+ str(len(g.sccs)) + " SCCs")
-                result.write("\n")
-                for scc in g.sccs:
-                    print("----------- # %s SCC -------------" % (scc.index))
-                    for v in scc.vertices:
-                        print(v.index)
-                    print("In vertices: ")
-                    for v in scc.in_vertices:
-                        print(v.index)
-                    print("Out vertices: ")
-                    for v in scc.out_vertices:
-                        print(v.index)
-        except (IOError):
-            pass
-        except (IndexError):
-            pass
-
-    # num_cores = multiprocessing.cpu_count()
-    # Parallel(n_jobs=num_cores)(delayed(run)(i) for i in range(65, 66))
+# if __name__ == '__main__':
+#
+#     # possible_error = [91, 92, 93, 138, 151, 152, 153, 253, 398, 590]
+#     result = open("disconnected_files.txt", "w")
+#
+#     for i in range(5, 601):
+#     # for i in possible_error:
+#         # if i in hard or i in easy or i in moderate:
+#         #   continue
+#         try:
+#             print(str(i)+".in")
+#             start_time = time.time()
+#             g = DAG("../inputs/unsolved/"+str(i)+".in")
+#             print("--- %s seconds to process DAG ---" % (time.time() - start_time))
+#             # if g.is_dag():
+#             #     start_time = time.time()
+#             #     sol = g.solve()[1]
+#             #     print sol
+#             #     print("--- %s seconds to solve DAG ---" % (time.time() - start_time))
+#             if len(g.sccs) * 30 >= len(g.vertices):
+#                 result.write(str(i)+ ": "+ str(len(g.sccs)) + " SCCs")
+#                 result.write("\n")
+#                 for scc in g.sccs:
+#                     print("----------- # %s SCC -------------" % (scc.index))
+#                     for v in scc.vertices:
+#                         print(v.index)
+#                     print("In vertices: ")
+#                     for v in scc.in_vertices:
+#                         print(v.index)
+#                     print("Out vertices: ")
+#                     for v in scc.out_vertices:
+#                         print(v.index)
+#         except (IOError):
+#             pass
+#         except (IndexError):
+#             pass
+#
+#     # num_cores = multiprocessing.cpu_count()
+#     # Parallel(n_jobs=num_cores)(delayed(run)(i) for i in range(65, 66))
