@@ -79,6 +79,22 @@ class Graph:
         for v in vertices:
             self.numE += len(v.neighbors)
 
+    def print_graph(self):
+        for i in range(self.size):
+            line = ""
+            # print(self.sccs[i].scc_neighbors)
+            for j in range(self.size):
+                if (j in self.vertices[i].neighbors):
+                    line += str(1) + " "
+                else:
+                    if (i == j):
+                        line += str(self.vertices[i].value) + " "
+                    else:
+                        line += str(0) + " "
+            # line += "Nodes: "
+            # line += ", ".join(list(map(str, self.sccs[i].internals)))
+            print(line)
+
 def delete_given_path(graph, path):
     g = copy.deepcopy(graph)
     vertices = g.vertices
