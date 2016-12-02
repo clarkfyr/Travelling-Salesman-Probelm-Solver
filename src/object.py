@@ -26,15 +26,17 @@ class dummyVertex(Vertex):
 
 # Graph is changed but functionalities should remain
 class Graph:
-    def __init__(self, filename):
-        f = open(filename, "r")
-        self.size = int(f.readline().rstrip())
-        adj_list = []
-        for line in f:
-            adj_list.append(line.split())
-        self.adj_list = np.array(adj_list)
-        self.reversed = False
-        self.set_vertices()
+    def __init__(self, filename = None):
+        if filename is not None:
+            f = open(filename, "r")
+            self.size = int(f.readline().rstrip())
+            adj_list = []
+            for line in f:
+                adj_list.append(line.split())
+            self.adj_list = np.array(adj_list)
+            self.reversed = False
+            self.set_vertices()
+
     def reverse(self):
         self.reversed = True
         self.adj_list = self.adj_list.T
@@ -62,6 +64,12 @@ class Graph:
                     self.numE += 1
             self.vertices.append(v)
             i += 1
+
+    def add_vertices(self, vertices):
+        self.vertices = vertices
+        self.numE = 0
+        for v in vertices:
+            self.numE += len(v.neighbors)
 
 def delete_given_path(graph, path):
     g = copy.deepcopy(graph)
