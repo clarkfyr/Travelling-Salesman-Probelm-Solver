@@ -7,14 +7,16 @@ import time
 
 class SCC(object.Graph, object.Vertex):
     """
-    # Instance attributes
-    # self.vertices: Inherited from Graph. vertices in this SCC
-    # self.neighbors: Inherited from Vertex. indices of neighbor vertices
-    # self.internals: indices of internal vertices
-    # self.in_vertices: Indices of vertices with in coming edges
-    # self.out_vertices: Indices of vertices with out going edges
+    Instance attributes
+    self.vertices: Inherited from Graph. vertices in this SCC
+    self.neighbors: Inherited from Vertex. indices of neighbor vertices
+    self.value: Inherited from Vertex. Set to 0 if this SCC contains multiple vertices
+    self.index: Inherited from Vertex. Represent the index of SCC in parent graph
+    self.internals: Indices of internal vertices
+    self.in_vertices: Indices of vertices with in coming edges
+    self.out_vertices: Indices of vertices with out going edges
     """
-    def __init__(self, g, vertices):
+    def __init__(self, g, vertices, index):
         self.vertices = vertices
         self.neighbors = []
         self.internals = []
@@ -23,6 +25,11 @@ class SCC(object.Graph, object.Vertex):
         self.out_vertices = []
         self.numEdge = 0
         self.g = g
+        self.index = index
+        if (len(vertices) == 1):
+            self.value = vertices[0].value
+        else:
+            self.value = 0
 
         # Find the neighbor vertices and internal vertices of SCC
         for vertex in self.vertices:
@@ -117,6 +124,13 @@ class DAG(object.Graph):
     # self.sccs: list of SCCs in this graph
     # self.scc_neighbors: list of SCC neighbors of SCCs. Similar format as self.neighbors
     """
+    def cal_score(self, assignment):
+        score = 0
+        for path in assignment:
+            values = [self.sccs[i].value for i in path]
+            score += sum(values) * len(values)
+        return score
+
     def __init__(self, filename):
 
         object.Graph.__init__(self, filename)
@@ -125,6 +139,7 @@ class DAG(object.Graph):
         self.sub_graphs = []
         self._set_scc()
         self._set_subgraph()
+        self.size_in_scc = len(self.sccs)
 
     def _set_scc(self):
         # Find all sccs
@@ -142,13 +157,15 @@ class DAG(object.Graph):
         removed = set()
         # removed vertices
         removed_vertices = set()
+        scc_index = 0
         while (len(to_explore) > 0):
             scc_indices = dfs_helper.explore(post_nums.index(max(to_explore)))
             removed = removed.union(scc_indices)
             to_explore = [post_nums[i] for i in range(len(post_nums)) if i not in removed]
             scc_vertices = [vertex for vertex in self.vertices if vertex.index in scc_indices]
             scc_vertices = set(scc_vertices).difference(removed_vertices)
-            new_scc = SCC(self, list(scc_vertices))
+            new_scc = SCC(self, list(scc_vertices), scc_index)
+            scc_index += 1
             removed_vertices = removed_vertices.union(scc_vertices)
             self.sccs.append(new_scc)
 
@@ -168,7 +185,6 @@ class DAG(object.Graph):
 
     def _set_subgraph(self):
         self.undirected()
-        
 
     def _locate_scc(self, vertex_index):
         """Given a index of a vertex, return the index of the SCC it belongs to"""
@@ -176,7 +192,6 @@ class DAG(object.Graph):
             if vertex_index in scc.internals:
                 return scc.index
         return -1
-
 
     def print_graph(self):
         for i in range(len(self.sccs)):
@@ -197,12 +212,12 @@ class DAG(object.Graph):
 
     def solve(self):
         """solve a dag"""
-        sub = [[[0, []] for _ in range(self.size)] for _ in range(self.size)]
-        for i in range(self.size):
-            sub[i][i][0] = self.vertices[i].value
-            sub[i][i][1].append([self.vertices[i].index])
-        for m in range(1, self.size):
-            print(m)
+        sub = [[[0, []] for _ in range(self.size_in_scc)] for _ in range(self.size_in_scc)]
+        for i in range(self.size_in_scc):
+            sub[i][i][0] = self.sccs[i].value
+            sub[i][i][1].append([self.sccs[i].index])
+        for m in range(1, self.size_in_scc):
+            # print(m)
             # pdb.set_trace()
             sub_range = list(range(m))
             sub_range.reverse()
@@ -224,7 +239,7 @@ class DAG(object.Graph):
                         max_val = value
                         max_assignment = copy.deepcopy(assignment)
                 sub[i][m] = [max_val, max_assignment]
-        return sub[0][self.size - 1]
+        return sub[0][self.size_in_scc - 1]
 
 def run(i):
     """main function for parallelized main"""
@@ -249,7 +264,7 @@ def run(i):
         pass
 
 def test_run():
-    g = DAG("../inputs/dag_exact/25.in")
+    g = DAG("../inputs/test_input_1.in")
     sol = g.solve()
     print(sol[1])
 

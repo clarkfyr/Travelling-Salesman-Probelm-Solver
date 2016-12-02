@@ -37,34 +37,27 @@ class Graph:
             self.size = int(f.readline().rstrip())
             adj_list = []
             for line in f:
-                adj_list.append(int(line.split()))
+                adj_list.append(to_int(line.split()))
             self.adj_list = np.array(adj_list)
             self.adj_list_backup = np.array(adj_list)
-            self._set_vertices()
+            self._set_vertices(self.adj_list)
 
     # Reverse the graph
     def reverse(self):
         self.adj_list = self.adj_list.T
-        self._set_vertices()
+        self._set_vertices(self.adj_list)
 
     # Change graph to undirected
     def undirected(self):
         self.adj_list = self.adj_list + self.adj_list.T
-        self._set_vertices()
+        self._set_vertices(self.adj_list)
 
     # Restore the original graph
     def restore(self):
         self._set_vertices(self.adj_list_backup)
 
-    def cal_score(self, assignment):
-        score = 0
-        for path in assignment:
-            values = [self.vertices[i].value for i in path]
-            score += sum(values) * len(values)
-        return score
-
     # set the vertices after the adjoint list is changed/created.
-    def _set_vertices(self, adj_list = self.adj_list):
+    def _set_vertices(self, adj_list):
         i = 0 # Index of vertex
         self.vertices = []
         self.numE = 0
@@ -74,7 +67,7 @@ class Graph:
             v = Vertex(i, int(row[i]))
             # Add neighbors
             for j in range(self.size):
-                if j != i and row[j] != 0):
+                if (j != i and row[j] != 0):
                     v.add_neighbor(j)
                     self.numE += 1
             self.vertices.append(v)
@@ -128,3 +121,6 @@ class Subproblem:
                 self.score -= sum([x.value for x in last_path]) * len(last_path)
                 last_path.append(v)
                 self.score += sum([x.value for x in last_path]) * len(last_path)
+
+def to_int(s_arr):
+    return [int(s) for s in s_arr]

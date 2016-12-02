@@ -1,5 +1,6 @@
 import object
 import copy
+import dag
 
 def modified_bfs(graph, s):
 	"""take in a graph and the index of the starting vertex; 
@@ -110,10 +111,34 @@ def greedy_highest_path_approximation(graph):
 			final = out
 	return score, final
 
-def get_longest_path_in_scc(graph, scc, s, t):
-	pass
+def get_longest_path_in_scc(graph, s, t):
+	"""find longest path from s to t and all other paths in scc"""
+	if graph.locate_scc(s) != graph.locate_scc(t):
+		return None
+	original_path = modified_bfs_in_scc(graph, s)[1][t]
+	print original_path
+	new_graph = object.delete_given_path(graph, original_path)
+	scc_index = graph.locate_scc(s)
+	final_out = [original_path]
+	end_iter = False
+	while not end_iter:
+		length = -1
+		path = None
+		for v in new_graph.sccs[scc_index].vertices:
+			curr_paths = modified_bfs_in_scc(new_graph, v.index)[1]
+			for curr_path in curr_paths:
+				if len(curr_path) >= length + 1:
+					length = len(curr_path) - 1
+					path = curr_path
+		final_out.append(path)
+		new_graph = object.delete_given_path(new_graph, path)
+		for v in new_graph.sccs[scc_index].vertices:
+			end_iter = True
+			if v.value != 0:
+				end_iter = False
+	return final_out
 
-def modified_bfs_in_scc(graph, scc, s):
+def modified_bfs_in_scc(graph, s):
 	"""find longest path from s inside scc for given scc index"""
 	vertices = graph.vertices
 	dist = []
@@ -129,35 +154,35 @@ def modified_bfs_in_scc(graph, scc, s):
 			path[prob[0]] = prob[1]
 			dist[prob[0]] = len(prob[1])
 		for v in vertices[prob[0]].neighbors:
-			if v not in prob[1]:
+			if v not in prob[1] and graph.locate_scc(s) == graph.locate_scc(v):
 				new_path = copy.deepcopy(prob[1])
 				new_path.append(prob[0])
 				new_prob = [v, new_path]
 				queue.append(new_prob)
 	for i in range(0, len(vertices)):
-		if vertices[i].value != 0:
+		if dist[i] != -1:
 			path[i].append(i)
 	return dist, path
 
-if __name__ == '__main__':
-    import time
-    result = open('highest_single_path_approximation.txt', "w")
+# if __name__ == '__main__':
+#     import time
+#     result = open('highest_single_path_approximation.txt', "w")
 
-    for i in range(1, 601):
-    	# if i in hard or i in easy or i in moderate:
-    	# 	continue
-        try:
-            g = object.Graph("../inputs/unsolved/"+str(i)+".in")
-            print str(i)+".in"
-            if len(g.vertices) <= 50:
-	            start_time = time.time()
-	            path = greedy_highest_path_approximation(g)
-	            print path
-	            if path:
-		            result.write(str(i) + ". " + str(path[1]) + " score: " + str(path[0]))
-		            result.write("\n")
-	            print("--- %s seconds ---" % (time.time() - start_time))
-        except (IOError):
-            pass
-        except (IndexError):
-            pass
+#     for i in range(1, 601):
+#     	# if i in hard or i in easy or i in moderate:
+#     	# 	continue
+#         try:
+#             g = object.Graph("../inputs/unsolved/"+str(i)+".in")
+#             print str(i)+".in"
+#             if len(g.vertices) <= 50:
+# 	            start_time = time.time()
+# 	            path = greedy_highest_path_approximation(g)
+# 	            print path
+# 	            if path:
+# 		            result.write(str(i) + ". " + str(path[1]) + " score: " + str(path[0]))
+# 		            result.write("\n")
+# 	            print("--- %s seconds ---" % (time.time() - start_time))
+#         except (IOError):
+#             pass
+#         except (IndexError):
+#             pass
