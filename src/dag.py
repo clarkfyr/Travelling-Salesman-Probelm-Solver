@@ -54,7 +54,7 @@ class SCC(object.Graph, object.Vertex):
         for vertex in self.g.vertices:
             for neighbor in vertex.neighbors:
                 if (neighbor in self.internals):
-                    in_vertices.add(vertex.index)
+                    in_vertices.add(neighbor)
         self.in_vertices = list(in_vertices)
 
     def trim_neighbors(self):
@@ -64,14 +64,14 @@ class SCC(object.Graph, object.Vertex):
                 if (neighbor not in self.internals):
                     vertex.neighbors.remove(neighbor)
 
-class SubGraph(object.Graph):
-    """
-    Instance variables:
-    self.g: parent graph of this SubGraph
-    """
-    def __init__(self, g, vertices):
-        self.g = g
-        self.vertices = vertices
+# class SubGraph(object.Graph):
+#     """
+#     Instance variables:
+#     self.g: parent graph of this SubGraph
+#     """
+#     def __init__(self, g, vertices):
+#         self.g = g
+#         self.vertices = vertices
 
 # Helper class for doing DFS on a graph
 class DFS:
@@ -117,32 +117,6 @@ class DFS:
                 if (neighbor not in visited):
                     stack.append(neighbor)
         return visited
-
-def delete_scc_given_path(graph, path):
-    if path == []:
-        return graph
-    g = copy.deepcopy(graph)
-    # pdb.set_trace()
-    vertices = g.vertices
-    # scc_index = g._locate_scc(path[0])
-    for v in vertices:
-        if v.index in path:
-            vertices[v.index] = object.dummyVertex(v.index)
-        else:
-            for n in v.neighbors:
-                if n in path:
-                    v.neighbors.remove(n)
-    for scc in g.sccs:
-        for v in scc.in_vertices:
-            if v in path:
-                scc.in_vertices.remove(v)
-        for v in scc.out_vertices:
-            if v in path:
-                scc.out_vertices.remove(v)
-        for v in scc.vertices:
-            if v.index in path:
-                scc.vertices.remove(v)
-    return g
 
 # Transform a graph into a dag of SCC
 class DAG(object.Graph):
@@ -240,6 +214,35 @@ class DAG(object.Graph):
         """Return if the original graph is a dag or not"""
         return len(self.sccs) == len(self.vertices)
 
+    def delete_path(self, path):
+        if path == []:
+            return
+        for v in self.vertices:
+            if v.index in path:
+                self.vertices[v.index].value = 0
+                self.vertices[v.index].neighbors = []
+            else:
+                for neighbor in v.neighbors:
+                    if neighbor in path:
+                        v.neighbors.remove(neighbor)
+
+        scc = self.sccs[self.locate_scc(path[0])]
+        for vertex in scc.in_vertices:
+            if vertex in path:
+                scc.in_vertices.remove(vertex)
+        for vertex in scc.out_vertices:
+            if vertex in path:
+                scc.out_vertices.remove(vertex)
+        # if (len(scc.vertices) == 1):
+        #     scc.value = scc.vertices[0].value
+        # elif (len(scc.vertices) == 0):
+        #     scc.value = 0
+
+        for scc in self.sccs:
+            for neighbor in scc.neighbors:
+                if neighbor in path:
+                    scc.neighbors.remove(neighbor)
+
     def solve(self):
         """solve a dag"""
         sub = [[[0, []] for _ in range(self.size_in_scc)] for _ in range(self.size_in_scc)]
@@ -297,6 +300,8 @@ def test_run():
     g = DAG("../inputs/test_input_1.in")
     sol = g.solve()
     print(sol[1])
+
+g = DAG("../inputs/test_input_1.in")
 
 # if __name__ == '__main__':
 #
