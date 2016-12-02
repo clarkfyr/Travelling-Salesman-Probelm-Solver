@@ -5,12 +5,14 @@ from joblib import Parallel, delayed
 import multiprocessing
 
 class SCC(object.Graph, object.Vertex):
+    """
     # Instance attributes
     # self.vertices: Inherited from Graph. vertices in this SCC
     # self.neighbors: Inherited from Vertex. indices of neighbor vertices
     # self.internals: indices of internal vertices
     # self.in_vertices: Indices of vertices with in coming edges
     # self.out_vertices: Indices of vertices with out going edges
+    """
     def __init__(self, g, vertices):
         self.vertices = vertices
         self.neighbors = []
@@ -32,14 +34,20 @@ class SCC(object.Graph, object.Vertex):
             for neighbor in list(set().union(vertex.neighbors, self.internals)):
                 self.numEdge += 1
 
+
         # Set in/out vertices a SCC
+        out_vertices = set()
         for vertex in self.vertices:
             for neighbor in vertex.neighbors:
                 if (neighbor not in self.internals):
-                    self.in_vertices.append(neighbor)
-        for vertex in g.vertices:
-            if (vertex.index not in self.internals):
-                self.out_vertices.append(vertex.index)
+                    out_vertices.add(neighbor)
+        self.out_vertices = list(out_vertices)
+        in_vertices = set()
+        for vertex in self.g.vertices:
+            for neighbor in vetex.neighbors:
+                if (neighbor in self.internals):
+                    in_vertices.add(vertex)
+        self.in_vertices = list(in_vertices)
 
 
 # Helper class for doing DFS on a graph
