@@ -1,9 +1,10 @@
 import object
 import copy
 import dag
+import pdb
 
 def modified_bfs(graph, s):
-	"""take in a graph and the index of the starting vertex; 
+	"""take in a graph and the index of the starting vertex;
 		return a list of longest distance to every vertex and path"""
 	vertices = graph.vertices
 	dist = []
@@ -42,7 +43,7 @@ def find_fully_connected(graph):
 	return None
 
 def find_longest_path(graph, s, t):
-	"""take in a graph and the index of the starting vertex and the index of the ending vertex; 
+	"""take in a graph and the index of the starting vertex and the index of the ending vertex;
 		return longest distance and path from s to t"""
 	dist_list, path_list = modified_bfs(graph, s)
 	return dist_list[t], path_list[t]
@@ -171,6 +172,25 @@ def modified_bfs_in_scc(graph, s):
 		if dist[i] != -1:
 			path[i].append(i)
 	return dist, path
+
+
+def find_longest_among_longest(dag, scc, starts, ends):
+	"""
+
+	:param starts: starting vertex indices
+	:param ends: ending vertex indices
+	:return:
+	"""
+	maxPath = []
+	start, end = None, None
+	for i in starts:
+		for j in ends:
+			path = modified_bfs_in_scc(dag, scc, i)[1][j]
+			if not maxPath or len(maxPath) < len(path):
+				maxPath = path
+				start = i
+				end = j
+	return start, end, maxPath
 
 # if __name__ == '__main__':
 #     import time
