@@ -113,15 +113,25 @@ def greedy_highest_path_approximation(graph):
 
 def get_longest_path_in_scc(graph, s, t):
 	"""find longest path from s to t and all other paths in scc"""
-	if graph.locate_scc(s) != graph.locate_scc(t):
+	if graph._locate_scc(s) != graph._locate_scc(t):
 		return None
+	scc_index = graph._locate_scc(s)
+	print("set:")
+	print([x.index for x in graph.sccs[scc_index].vertices])
 	original_path = modified_bfs_in_scc(graph, s)[1][t]
-	print original_path
-	new_graph = object.delete_given_path(graph, original_path)
-	scc_index = graph.locate_scc(s)
+	new_graph = dag.delete_scc_given_path(graph, original_path)
+	print("path:")
+	print(original_path)
 	final_out = [original_path]
-	end_iter = False
-	while not end_iter:
+	while True:
+		end_iter = True
+		print("set:")
+		print([x.index for x in new_graph.sccs[scc_index].vertices])
+		for v in new_graph.sccs[scc_index].vertices:
+			if v.value != 0:
+				end_iter = False
+		if end_iter:
+			break
 		length = -1
 		path = None
 		for v in new_graph.sccs[scc_index].vertices:
@@ -130,12 +140,10 @@ def get_longest_path_in_scc(graph, s, t):
 				if len(curr_path) >= length + 1:
 					length = len(curr_path) - 1
 					path = curr_path
+		print("path:")
+		print(path)
 		final_out.append(path)
-		new_graph = object.delete_given_path(new_graph, path)
-		for v in new_graph.sccs[scc_index].vertices:
-			end_iter = True
-			if v.value != 0:
-				end_iter = False
+		new_graph = dag.delete_scc_given_path(new_graph, path)
 	return final_out
 
 def modified_bfs_in_scc(graph, s):
@@ -154,7 +162,7 @@ def modified_bfs_in_scc(graph, s):
 			path[prob[0]] = prob[1]
 			dist[prob[0]] = len(prob[1])
 		for v in vertices[prob[0]].neighbors:
-			if v not in prob[1] and graph.locate_scc(s) == graph.locate_scc(v):
+			if v not in prob[1] and graph._locate_scc(s) == graph._locate_scc(v):
 				new_path = copy.deepcopy(prob[1])
 				new_path.append(prob[0])
 				new_prob = [v, new_path]
