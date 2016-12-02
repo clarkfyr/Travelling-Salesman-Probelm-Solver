@@ -36,23 +36,6 @@ import longest_path as lp
 #
 #     return scc_lst
 
-def find_longest_among_longest(dag, scc, starts, ends):
-    """
-
-    :param starts: starting vertex indices
-    :param ends: ending vertex indices
-    :return:
-    """
-    maxPath = []
-    start, end = None, None
-    for i in starts:
-        for j in ends:
-            path = lp.modified_bfs_in_scc(dag, scc, i)[1][j]
-            if not maxPath or len(maxPath) < len(path):
-                maxPath = path
-                start = i
-                end = j
-    return start, end, maxPath
 
 
 def tsp_dag(dag):
