@@ -1,9 +1,10 @@
 import object
 import copy
 import dag
+import pdb
 
 def modified_bfs(graph, s):
-	"""take in a graph and the index of the starting vertex; 
+	"""take in a graph and the index of the starting vertex;
 		return a list of longest distance to every vertex and path"""
 	vertices = graph.vertices
 	dist = []
@@ -42,7 +43,7 @@ def find_fully_connected(graph):
 	return None
 
 def find_longest_path(graph, s, t):
-	"""take in a graph and the index of the starting vertex and the index of the ending vertex; 
+	"""take in a graph and the index of the starting vertex and the index of the ending vertex;
 		return longest distance and path from s to t"""
 	dist_list, path_list = modified_bfs(graph, s)
 	return dist_list[t], path_list[t]
@@ -116,11 +117,9 @@ def get_longest_path_in_scc(graph, s, t):
 	if graph.locate_scc(s) != graph.locate_scc(t):
 		return None
 	original_path = modified_bfs_in_scc(graph, s)[1][t]
-	print original_path
 	new_graph = object.delete_given_path(graph, original_path)
 	scc_index = graph.locate_scc(s)
 	final_out = [original_path]
-	end_iter = False
 	while not end_iter:
 		length = -1
 		path = None

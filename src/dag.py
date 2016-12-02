@@ -43,12 +43,6 @@ class SCC(object.Graph, object.Vertex):
             for neighbor in list(set().union(vertex.neighbors, self.internals)):
                 self.numEdge += 1
 
-        # Set the neighbors of vertices to have only internal vertices
-        for vertex in self.vertices:
-            for neighbor in vertex.neighbors:
-                if (neighbor not in self.internals):
-                    vertex.neighbors.remove(neighbor)
-
         # Set in/out vertices a SCC
         out_vertices = set()
         for vertex in self.vertices:
@@ -62,6 +56,13 @@ class SCC(object.Graph, object.Vertex):
                 if (neighbor in self.internals):
                     in_vertices.add(vertex.index)
         self.in_vertices = list(in_vertices)
+
+    def trim_neighbors(self):
+        """ Set the neighbors of vertices to have only internal vertices s"""
+        for vertex in self.vertices:
+            for neighbor in vertex.neighbors:
+                if (neighbor not in self.internals):
+                    vertex.neighbors.remove(neighbor)
 
 class SubGraph(object.Graph):
     """
@@ -138,7 +139,7 @@ class DAG(object.Graph):
         self.scc_neighbors = []
         self.sub_graphs = []
         self._set_scc()
-        self._set_subgraph()
+        # self._set_subgraph()
         self.size_in_scc = len(self.sccs)
 
     def _set_scc(self):
@@ -180,20 +181,20 @@ class DAG(object.Graph):
             for vertex in self.sccs[i].vertices:
                 for vertex_neighbor in vertex.neighbors:
                     if vertex_neighbor not in self.sccs[i].internals:
-                        neighbors.append(self._locate_scc(vertex_neighbor))
+                        neighbors.append(self.locate_scc(vertex_neighbor))
             self.scc_neighbors.append(neighbors)
 
-    def _set_subgraph(self):
-        self.undirected()
+    # def _set_subgraph(self):
+    #     self.undirected()
 
-    def _locate_scc(self, vertex_index):
+    def locate_scc(self, vertex_index):
         """Given a index of a vertex, return the index of the SCC it belongs to"""
         for scc in self.sccs:
             if vertex_index in scc.internals:
                 return scc.index
         return -1
 
-    def print_graph(self):
+    def print_dag(self):
         for i in range(len(self.sccs)):
             line = ""
             # print(self.sccs[i].scc_neighbors)
@@ -201,7 +202,10 @@ class DAG(object.Graph):
                 if (j in self.scc_neighbors[i]):
                     line += str(1) + " "
                 else:
-                    line += str(0) + " "
+                    if (i == j):
+                        line += str(self.sccs[i].value) + " "
+                    else:
+                        line += str(0) + " "
             line += "Nodes: "
             line += ", ".join(list(map(str, self.sccs[i].internals)))
             print(line)
