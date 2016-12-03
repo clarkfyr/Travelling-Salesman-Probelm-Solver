@@ -2,6 +2,7 @@ import object
 import pdb
 import copy
 import time
+import random
 # from joblib import Parallel, delayed
 # import multiprocessing
 
@@ -83,23 +84,40 @@ class DFS:
         self.post_nums = [0 for _ in range(len(g.vertices))]
 
     # Return the pre numbers and post numbers after DFS
-    def dfs(self):
+    def dfs(self, sources = [], rand = False):
+        # Start from specified start vertex
+        # self._dfs(self.g, start, random)
         # While not all vertices are visited
         while (len(self.visited) < len(self.g.vertices)):
-            # Find the first unvisited vertex
-            unvisited = [i for i in range(self.g.size) if self.g.vertices[i].index not in self.visited][0]
+            # Find the first unvisited source
+            unvisited = [i for i in range(self.g.size) if self.g.vertices[i].index not in self.visited]
+            unvisited_sources = list(set().union(unvisited, sources))
+            # If there is an unvisited source, start from unvisted source
+            # Otherwise, start at any unvisted vertex
+            if (len(unvisited_sources) > 0):
+                start = unvisited_sources[0]
+            else:
+                start = unvisited[0]
             # Run DFS starting from this vertex
-            self._dfs(self.g, self.g.vertices[unvisited])
+            self._dfs(self.g, start, rand)
         return self.pre_nums, self.post_nums
 
-    def _dfs(self, g, curr):
-        self.visited.add(curr.index)
-        self.pre_nums[curr.index] = self.i
+    def _dfs(self, g, curr, rand):
+        self.visited.add(curr)
+        self.pre_nums[curr] = self.i
         self.i += 1
-        for neighbor in curr.neighbors:
-            if neighbor not in self.visited:
-                self._dfs(g, g.vertices[neighbor])
-        self.post_nums[curr.index] = self.i
+        if (rand):
+            # random.sample(x, len(x))
+            neighbors = random.sample(self.g.vertices[curr].neighbors, len(self.g.vertices[curr].neighbors))
+        else:
+            neighbors = self.g.vertices[curr].neighbors
+        try:
+            for neighbor in neighbors:
+                if neighbor not in self.visited:
+                    self._dfs(g, neighbor, rand)
+        except:
+            pdb.set_trace()
+        self.post_nums[curr] = self.i
         self.i += 1
 
     # Return all nodes can be reached from start node

@@ -1,6 +1,7 @@
 import dag
 import object
 import random
+import pdb
 
 def find_sources_and_singles(graph):
     sources = [_.index for _ in graph.vertices][:] # Index
@@ -31,7 +32,7 @@ def dfs_approximate(graph):
 
     return total_path
 
-def random_dfs_explore(graph, sources):
+def random_dfs_explore_jk(graph, sources):
     sources_list = sources
     dfs_path = []
     g = graph
@@ -72,3 +73,13 @@ def random_dfs_explore(graph, sources):
             dfs_path.append(index)
     return dfs_path
 
+def random_dfs_explore(graph, sources):
+    magic = dag.DFS(graph)
+    pre_nums = magic.dfs(sources, True)[0]
+    indices = [index for value, index in sorted((e,i) for i,e in enumerate(pre_nums))]
+    return indices
+
+
+def test_run():
+    g = dag.DAG("../inputs/test_input_1.in")
+    print(random_dfs_explore(g, find_sources_and_singles(g)["sources"]))
