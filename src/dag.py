@@ -296,12 +296,12 @@ def run(i):
     except (IndexError):
         pass
 
-def test_run():
-    g = DAG("../inputs/test_input_1.in")
-    sol = g.solve()
-    print(sol[1])
+# def test_run():
+#     g = DAG("../inputs/test_input_1.in")
+#     sol = g.solve()
+#     print(sol[1])
 
-g = DAG("../inputs/test_input_1.in")
+# g = DAG("../inputs/test_input_1.in")
 
 # if __name__ == '__main__':
 #
