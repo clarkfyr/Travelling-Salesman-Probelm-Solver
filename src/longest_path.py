@@ -114,37 +114,39 @@ def greedy_highest_path_approximation(graph):
 
 def get_longest_path_in_scc(graph, s, t):
 	"""find longest path from s to t and all other paths in scc"""
-	if graph._locate_scc(s) != graph._locate_scc(t):
+	if graph.locate_scc(s) != graph.locate_scc(t):
 		return None
-	scc_index = graph._locate_scc(s)
-	print("set:")
-	print([x.index for x in graph.sccs[scc_index].vertices])
-	original_path = modified_bfs_in_scc(graph, s)[1][t]
-	new_graph = dag.delete_scc_given_path(graph, original_path)
-	print("path:")
-	print(original_path)
-	final_out = [original_path]
-	while True:
-		end_iter = True
-		print("set:")
-		print([x.index for x in new_graph.sccs[scc_index].vertices])
-		for v in new_graph.sccs[scc_index].vertices:
-			if v.value != 0:
-				end_iter = False
-		if end_iter:
-			break
-		length = -1
+	scc_index = graph.locate_scc(s)
+
+	# Delete the through path from s to t
+	through_path = modified_bfs_in_scc(graph, s)[1][t]
+	graph.delete_path(through_path)
+	final_out = [through_path]
+	# final_out = []
+	run = sum([vertex.value for vertex in graph.sccs[scc_index].vertices]) > 0
+
+	flatten = lambda l: [item for sublist in l for item in sublist]
+
+	while run:
+		length = 0
 		path = None
-		for v in new_graph.sccs[scc_index].vertices:
-			curr_paths = modified_bfs_in_scc(new_graph, v.index)[1]
+		for v in graph.sccs[scc_index].vertices:
+			curr_paths = modified_bfs_in_scc(graph, v.index)[1]
+
 			for curr_path in curr_paths:
-				if len(curr_path) >= length + 1:
-					length = len(curr_path) - 1
+				if (curr_path == [v.index] and v.index in flatten(final_out)):
+					curr_path = []
+				if (curr_path and len(curr_path) > length):
+					length = len(curr_path)
 					path = curr_path
-		print("path:")
-		print(path)
-		final_out.append(path)
-		new_graph = dag.delete_scc_given_path(new_graph, path)
+		pdb.set_trace()
+
+		if (path and len(path) > 0):
+			final_out.append(path)
+			graph.delete_path(path)
+			run = sum([vertex.value for vertex in graph.sccs[scc_index].vertices]) > 0
+		else:
+			run = False
 	return final_out
 
 def modified_bfs_in_scc(graph, s):
@@ -163,7 +165,7 @@ def modified_bfs_in_scc(graph, s):
 			path[prob[0]] = prob[1]
 			dist[prob[0]] = len(prob[1])
 		for v in vertices[prob[0]].neighbors:
-			if v not in prob[1] and graph._locate_scc(s) == graph._locate_scc(v):
+			if v not in prob[1] and graph.locate_scc(s) == graph.locate_scc(v):
 				new_path = copy.deepcopy(prob[1])
 				new_path.append(prob[0])
 				new_prob = [v, new_path]
@@ -214,3 +216,6 @@ def find_longest_among_longest(dag, scc, starts, ends):
 #             pass
 #         except (IndexError):
 #             pass
+
+g = dag.DAG("../inputs/unsolved/332.in")
+ps = get_longest_path_in_scc(g,20,43)
