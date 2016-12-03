@@ -31,6 +31,7 @@ def dfs_approximate(graph):
 
     # Run DFS on each source
     for source in sources:
+        pass
         # total_path += dfs_path(graph, source)
 
     return total_path
