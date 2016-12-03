@@ -107,11 +107,22 @@ def delete_given_path(graph, path):
                     v.neighbors.remove(n)
     return g
 
-    # def get_score_by_list(self, list_index):
-    #     score = 0
-    #     temp = list_index.pop(0)
-    #     temp_multiplier = 1
-    #     while len(list_index) != 0
+def get_path_from_order(graph, order):
+    final_path = []
+    temp_path = []
+    while len(order) > 1:
+        curr = order.pop(0)
+        next = order[0]
+        if not next in graph.vertices[curr].neighbors:
+            temp_path.append(curr)
+            final_path.append(temp_path)
+            temp_path = []
+        else:
+            temp_path.append(curr)
+    final = order.pop()
+    temp_path.append(final)
+    final_path.append(temp_path)
+    return final_path
 
 
 class Subproblem:
