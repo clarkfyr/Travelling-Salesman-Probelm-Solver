@@ -82,4 +82,4 @@ def random_dfs_explore(graph, sources):
 
 def test_run():
     g = dag.DAG("../inputs/test_input_1.in")
-    print(random_dfs_explore(g, find_sources_and_singles(g)["sources"]))
+    print random_dfs_explore(g, find_sources_and_singles(g)["sources"])

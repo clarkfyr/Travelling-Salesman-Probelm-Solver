@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ede49757-dad0-4f73-a194-46f2bcd5205e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dag.py" afterPath="$PROJECT_DIR$/src/dag.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dfs_approximation.py" afterPath="$PROJECT_DIR$/src/dfs_approximation.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/longest_path.py" afterPath="$PROJECT_DIR$/src/longest_path.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/tsp_dag_approximation.py" afterPath="$PROJECT_DIR$/src/tsp_dag_approximation.py" />
     </list>
     <ignored path="170_final_proj.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,8 +27,8 @@
       <file leaf-file-name="longest_path.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/longest_path.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="471">
-              <caret line="198" column="0" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
+            <state relative-caret-position="-1163">
+              <caret line="147" column="13" selection-start-line="147" selection-start-column="13" selection-end-line="147" selection-end-column="13" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
                 <marker date="1480739769000" expanded="false" signature="0:25" ph="import ..." />
@@ -40,21 +40,18 @@
       <file leaf-file-name="dag.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dag.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1025">
-              <caret line="51" column="24" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-                <marker date="1480739769000" expanded="true" signature="10974:10975" ph="..." />
-              </folding>
+            <state relative-caret-position="1056">
+              <caret line="52" column="24" selection-start-line="52" selection-start-column="24" selection-end-line="52" selection-end-column="24" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tsp_dag_approximation.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="tsp_dag_approximation.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/tsp_dag_approximation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-94">
-              <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+            <state relative-caret-position="506">
+              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -62,14 +59,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dfs_approximation.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="dfs_approximation.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dfs_approximation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-327">
-              <caret line="29" column="51" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="1804">
+              <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -87,7 +82,7 @@
       <file leaf-file-name="tsp.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tsp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1276">
+            <state relative-caret-position="389">
               <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
@@ -99,10 +94,40 @@
       <file leaf-file-name="object.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/object.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1320">
-              <caret line="95" column="23" selection-start-line="95" selection-start-column="23" selection-end-line="95" selection-end-column="23" />
+            <state relative-caret-position="2046">
+              <caret line="106" column="23" selection-start-line="106" selection-start-column="23" selection-end-line="106" selection-end-column="23" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+                <marker date="1480798132000" expanded="true" signature="56:319" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="94:176" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="212:249" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="278:319" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="347:517" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="378:418" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="454:467" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="496:517" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="584:2937" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="589:819" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+                <marker date="1480798132000" expanded="true" signature="860:1234" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="893:1234" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="1282:1364" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="1424:1522" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="1579:1628" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="1734:2187" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="1844:2187" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="1857:1908" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="2014:2132" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="2059:2132" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="2226:2350" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="2378:2937" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="2413:2937" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="2522:2809" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="2639:2809" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="2822:2913" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="2974:3737" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="3052:3253" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="3147:3253" ph="..." />
+                <marker date="1480798132000" expanded="true" signature="3181:3253" ph="..." />
               </folding>
             </state>
           </provider>
@@ -128,15 +153,15 @@
         <option value="$PROJECT_DIR$/src/object.py" />
         <option value="$PROJECT_DIR$/src/dag.py" />
         <option value="$PROJECT_DIR$/src/longest_path.py" />
-        <option value="$PROJECT_DIR$/src/tsp_dag_approximation.py" />
         <option value="$PROJECT_DIR$/src/dfs_approximation.py" />
+        <option value="$PROJECT_DIR$/src/tsp_dag_approximation.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="1920" />
-    <option name="height" value="985" />
+    <option name="width" value="1280" />
+    <option name="height" value="717" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -163,8 +188,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -213,6 +236,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -234,6 +259,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="170_final_proj" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/tsp_dag_approximation.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="dfs_approximation" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="170_final_proj" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/dfs_approximation.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -372,12 +414,14 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="1">
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Python.tsp_dag_approximation" />
+      <item index="1" class="java.lang.String" itemvalue="Python.dfs_approximation" />
     </list>
     <recent_temporary>
-      <list size="1">
+      <list size="2">
         <item index="0" class="java.lang.String" itemvalue="Python.tsp_dag_approximation" />
+        <item index="1" class="java.lang.String" itemvalue="Python.dfs_approximation" />
       </list>
     </recent_temporary>
   </component>
@@ -395,16 +439,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="985" extended-state="0" />
+    <frame x="0" y="23" width="1280" height="717" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16535018" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16521049" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.062709965" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2624" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32922733" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -414,6 +457,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329582" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -444,9 +488,107 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/longest_path.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+            <marker date="1480739769000" expanded="false" signature="0:25" ph="import ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dag.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1056">
+          <caret line="51" column="24" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tsp_dag_approximation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dfs_approximation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="29" column="51" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inputs/greedy_approximation/145.in">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tsp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2112">
+          <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/object.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2046">
+          <caret line="95" column="23" selection-start-line="95" selection-start-column="23" selection-end-line="95" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <marker date="1480798132000" expanded="true" signature="56:319" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="94:176" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="212:249" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="278:319" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="347:517" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="378:418" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="454:467" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="496:517" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="584:2937" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="589:819" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1480798132000" expanded="true" signature="860:1234" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="893:1234" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="1282:1364" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="1424:1522" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="1579:1628" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="1734:2187" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="1844:2187" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="1857:1908" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2014:2132" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2059:2132" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2226:2350" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2378:2937" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2413:2937" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2522:2809" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2639:2809" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2822:2913" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2974:3737" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="3052:3253" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="3147:3253" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="3181:3253" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/longest_path.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="440">
           <caret line="21" column="48" selection-start-line="21" selection-start-column="48" selection-end-line="21" selection-end-column="48" />
-          <folding />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+            <marker date="1480739769000" expanded="false" signature="0:25" ph="import ..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -454,23 +596,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/highest_single_path_approximation.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/highest_single_path_approximation.txt" />
     <entry file="file://$PROJECT_DIR$/inputs/greedy_approximation/62.in">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-59">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -484,18 +617,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/object.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1320">
-          <caret line="95" column="23" selection-start-line="95" selection-start-column="23" selection-end-line="95" selection-end-column="23" />
+        <state relative-caret-position="2046">
+          <caret line="106" column="23" selection-start-line="106" selection-start-column="23" selection-end-line="106" selection-end-column="23" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+            <marker date="1480798132000" expanded="true" signature="56:319" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="94:176" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="212:249" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="278:319" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="347:517" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="378:418" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="454:467" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="496:517" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="584:2937" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="589:819" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
+            <marker date="1480798132000" expanded="true" signature="860:1234" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="893:1234" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="1282:1364" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="1424:1522" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="1579:1628" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="1734:2187" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="1844:2187" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="1857:1908" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2014:2132" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2059:2132" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2226:2350" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2378:2937" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2413:2937" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2522:2809" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2639:2809" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2822:2913" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="2974:3737" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="3052:3253" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="3147:3253" ph="..." />
+            <marker date="1480798132000" expanded="true" signature="3181:3253" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/longest_path.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="198" column="0" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
+        <state relative-caret-position="-1163">
+          <caret line="147" column="13" selection-start-line="147" selection-start-column="13" selection-end-line="147" selection-end-column="13" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
             <marker date="1480739769000" expanded="false" signature="0:25" ph="import ..." />
@@ -503,9 +666,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/inputs/test_input_1.in">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dfs_approximation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1804">
+          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dag.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1056">
+          <caret line="52" column="24" selection-start-line="52" selection-start-column="24" selection-end-line="52" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/tsp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1276">
+        <state relative-caret-position="389">
           <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
@@ -515,31 +702,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tsp_dag_approximation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-94">
-          <caret line="21" column="26" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
+        <state relative-caret-position="506">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dag.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1025">
-          <caret line="51" column="24" selection-start-line="51" selection-start-column="24" selection-end-line="51" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <marker date="1480739769000" expanded="true" signature="10974:10975" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dfs_approximation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-327">
-          <caret line="29" column="51" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -50,4 +50,5 @@ def tsp_dag(dag):
 
 if __name__ == "__main__":
     dag = dag.DAG("../inputs/greedy_approximation/145.in")
+    tsp_dag(dag)
 
