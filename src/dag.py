@@ -95,9 +95,9 @@ class DFS:
             # If there is an unvisited source, start from unvisted source
             # Otherwise, start at any unvisted vertex
             if (len(unvisited_sources) > 0):
-                start = unvisited_sources[0]
+                start = random.choice(unvisited_sources)
             else:
-                start = unvisited[0]
+                start = random.choice(unvisited)
             # Run DFS starting from this vertex
             self._dfs(self.g, start, rand)
         return self.pre_nums, self.post_nums
