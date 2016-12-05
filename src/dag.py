@@ -3,8 +3,8 @@ import pdb
 import copy
 import time
 import random
-# from joblib import Parallel, delayed
-# import multiprocessing
+from joblib import Parallel, delayed
+import multiprocessing
 
 class SCC(object.Graph, object.Vertex):
     """
@@ -273,7 +273,7 @@ class DAG(object.Graph):
             sub_range = list(range(m))
             sub_range.reverse()
             for i in sub_range:
-                max_val = 0
+                max_val = -1
                 max_assignment = []
                 for k in range(i+1, m+1):
                     assignment = copy.deepcopy(sub[k][m][1])
@@ -300,73 +300,123 @@ class DAG(object.Graph):
             
         return (sub[0][self.size_in_scc - 1][0], max_assignment_vertices)
 
-def run(i):
-    """main function for parallelized main"""
-    try:
-        start_time = time.time()
-        g = DAG("../inputs/unsolved/"+str(i)+".in")
-        print(str(i)+".in")
-        print("--- %s seconds to process DAG ---" % (time.time() - start_time))
-        for scc in g.sccs:
-            print("----------- # %s SCC -------------" % (scc.index))
-            for v in scc.vertices:
-                print(v.index)
-            print("In vertices: ")
-            for v in scc.in_vertices:
-                print(v.index)
-            print("Out vertices: ")
-            for v in scc.out_vertices:
-                print(v.index)
-    except (IOError):
-        pass
-    except (IndexError):
-        pass
+# def run(i):
+#     """main function for parallelized main"""
+#     try:
+#         start_time = time.time()
+#         g = DAG("../inputs/unsolved/"+str(i)+".in")
+#         print(str(i)+".in")
+#         print("--- %s seconds to process DAG ---" % (time.time() - start_time))
+#         for scc in g.sccs:
+#             print("----------- # %s SCC -------------" % (scc.index))
+#             for v in scc.vertices:
+#                 print(v.index)
+#             print("In vertices: ")
+#             for v in scc.in_vertices:
+#                 print(v.index)
+#             print("Out vertices: ")
+#             for v in scc.out_vertices:
+#                 print(v.index)
+#     except (IOError):
+#         pass
+#     except (IndexError):
+#         pass
+# 
+# def test_run():
+#     start = time.time()
+#     g = DAG("../inputs/dag_exact/72.in")
+#     sol = g.solve()
+#     print(sol[1])
+#     print(time.time() - start)
 
-def test_run():
-    start = time.time()
-    g = DAG("../inputs/dag_exact/72.in")
-    sol = g.solve()
-    print(sol[1])
-    print(time.time() - start)
 
-# g = DAG("../inputs/test_input_1.in")
 
-# if __name__ == '__main__':
-#
-#     # possible_error = [91, 92, 93, 138, 151, 152, 153, 253, 398, 590]
-#     result = open("disconnected_files.txt", "w")
-#
-#     for i in range(5, 601):
-#     # for i in possible_error:
+import time
+    # start_time = time.time()
+
+    # g = DAG("./result.txt")
+    # g.print_graph()
+    # sol = g.solve()
+    # print(sol[0])
+    # print(sol[1])
+def run(p):
+    # print("--- %s seconds ---" % (time.time() - start_time))
+    result = open('new_dag.txt', "a")
+    for i in range(p, p+1):
+        # if i in hard or i in easy or i in moderate:
+        #   continue
+        try:
+            g = object.Graph("../inputs/dag_exact/"+str(i)+".in")
+            if (len(g.vertices) in range(0, 501)):
+                start_time = time.time()
+                print str(i)+".in"
+                g = DAG("../inputs/dag_exact/"+str(i)+".in")
+                print("--- %s seconds to process DAG ---" % (time.time() - start_time))
+                # result.write(str(i)+" is not a DAG" + "\n")
+                if g.is_dag():
+                    print str(i)+" is a DAG"
+                    start_time = time.time()
+                    soln = g.solve()[1]
+                    result.write(str(i) + ". " + str(soln))
+                    result.write("\n")
+                    print(i, soln)
+                    print("--- %s seconds to solve DAG---" % (time.time() - start_time))
+                    # result.write(str(i) + ". " + str(soln))
+                    # result.write("\n")
+                    result = open('new_dag.txt', "a")
+        except (IOError):
+            pass
+        except (IndexError):
+            pass
+
+
+
+
+
+# import time
+#     result = open('new_dag.txt', "a")
+#     for i in range(p, p+1):
 #         # if i in hard or i in easy or i in moderate:
 #         #   continue
 #         try:
-#             print(str(i)+".in")
 #             start_time = time.time()
-#             g = DAG("../inputs/unsolved/"+str(i)+".in")
-#             print("--- %s seconds to process DAG ---" % (time.time() - start_time))
-#             # if g.is_dag():
-#             #     start_time = time.time()
-#             #     sol = g.solve()[1]
-#             #     print sol
-#             #     print("--- %s seconds to solve DAG ---" % (time.time() - start_time))
-#             if len(g.sccs) * 30 >= len(g.vertices):
-#                 result.write(str(i)+ ": "+ str(len(g.sccs)) + " SCCs")
-#                 result.write("\n")
-#                 for scc in g.sccs:
-#                     print("----------- # %s SCC -------------" % (scc.index))
-#                     for v in scc.vertices:
-#                         print(v.index)
-#                     print("In vertices: ")
-#                     for v in scc.in_vertices:
-#                         print(v.index)
-#                     print("Out vertices: ")
-#                     for v in scc.out_vertices:
-#                         print(v.index)
+#             path_list = [];
+#             temp_score = 0
+#             temp_path = []
+#             # numV = []
+# 
+#             print(str(i)+".in")
+#             g = object.Graph("../inputs/dag_exact/"+str(i)+".in")
+#             for j in range(0, 1):
+#                 order = (random_dfs_explore(g, find_sources_and_singles(g)["sources"]))
+#                 path = object.get_path_from_order(g, order)
+#                 path_list.append(path)
+#             for p in path_list:
+#                 score = compute_score_full_assignment(g, p)
+#                 if score >= temp_score:
+#                     temp_path = p
+#                     temp_score = score
+#             # for p in path_list:
+#             #     num = 0
+#             #     for i in p:
+#             #         if type(i) == int:
+#             #             num += 1
+#             #         else:
+#             #             num += len(i)
+#             #     numV.append(num)
+#             # print(numV)
+#             soln = temp_path
+#             # resultOld = open('dfs_approx_0_80.txt', "r")
+#             # result.write(str(resultOld.read()))
+#             # result = open('dfs_approx_0_80.txt', "w")
+#             result.write(str(i) + ". " + str(soln))
+#             result.write("\n")
+#             result = open('new_5000.txt', "a")
+#             print(i, soln)
+#             print("--- %s seconds to solve graph---" % (time.time() - start_time))
+#             # break;
 #         except (IOError):
 #             pass
-#         except (IndexError):
-#             pass
-#
-#     # num_cores = multiprocessing.cpu_count()
-#     # Parallel(n_jobs=num_cores)(delayed(run)(i) for i in range(65, 66))
+
+num_cores = multiprocessing.cpu_count()
+Parallel(n_jobs=num_cores)(delayed(run)(i) for i in range(0, 601))
