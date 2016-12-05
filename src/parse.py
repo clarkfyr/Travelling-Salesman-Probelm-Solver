@@ -3,7 +3,7 @@ import object
 import random
 
 
-result1 = open('Michael_horseTest.out', "r")
+result1 = open('horseTest.out', "r")
 result2 = open('fake.out', "r")
 outputFile = open('output.out', "a")
 
