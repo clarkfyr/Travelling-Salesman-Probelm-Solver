@@ -131,6 +131,28 @@ def check_path(graph, list_of_paths):
                 return False
     return True
 
+def check_fully_used(graph, list_of_paths):
+    check = [0 for x in range(0, len(graph.vertices))]
+    try:
+        for path in list_of_paths:
+            print path
+            for i in range(0, len(path)):
+                ind = path[i]
+                print ind
+                if check[ind] == 0:
+                    check[ind] = 1
+                elif check[ind] == 1:
+                    print "case 1"
+                    print check
+                    return False
+        print check
+        for i in range(0, len(check)):
+            if check[i] == 0:
+                print "case 2"
+                return False
+        return True
+    except(IndexError):
+        return False
 
 class Subproblem:
     def __init__(self, start, end, visited, path, score):
