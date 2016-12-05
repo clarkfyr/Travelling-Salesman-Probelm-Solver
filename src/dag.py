@@ -277,7 +277,7 @@ class DAG(object.Graph):
                 max_assignment = []
                 for k in range(i+1, m+1):
                     assignment = copy.deepcopy(sub[k][m][1])
-                    if (k in self.vertices[i].neighbors):
+                    if (k in self.scc_neighbors[i]):
                         assignment[0].insert(0,i)
                     else:
                         assignment.insert(0,[i])
@@ -290,7 +290,15 @@ class DAG(object.Graph):
                         max_val = value
                         max_assignment = copy.deepcopy(assignment)
                 sub[i][m] = [max_val, max_assignment]
-        return sub[0][self.size_in_scc - 1]
+        max_assignment = sub[0][self.size_in_scc - 1][1]
+        max_assignment_vertices = []
+        for path in max_assignment:
+            try:
+                max_assignment_vertices.append([self.sccs[scc_index].vertices[0].index for scc_index in path])
+            except:
+                pdb.set_trace()
+            
+        return (sub[0][self.size_in_scc - 1][0], max_assignment_vertices)
 
 def run(i):
     """main function for parallelized main"""
@@ -316,7 +324,7 @@ def run(i):
 
 def test_run():
     start = time.time()
-    g = DAG("../inputs/dag_exact/10.in")
+    g = DAG("../inputs/dag_exact/72.in")
     sol = g.solve()
     print(sol[1])
     print(time.time() - start)
