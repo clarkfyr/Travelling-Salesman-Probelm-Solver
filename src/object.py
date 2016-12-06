@@ -124,6 +124,29 @@ def get_path_from_order(graph, order):
     final_path.append(temp_path)
     return final_path
 
+def check_path(graph, list_of_paths):
+    for path in list_of_paths:
+        for i in range(0, len(path) - 1):
+            if path[i + 1] not in graph.vertices[path[i]].neighbors:
+                return False
+    return True
+
+def check_fully_used(graph, list_of_paths):
+    check = [0 for x in range(0, len(graph.vertices))]
+    try:
+        for path in list_of_paths:
+            for i in range(0, len(path)):
+                ind = path[i]
+                if check[ind] == 0:
+                    check[ind] = 1
+                elif check[ind] == 1:
+                    return False
+        for i in range(0, len(check)):
+            if check[i] == 0:
+                return False
+        return True
+    except(IndexError):
+        return False
 
 class Subproblem:
     def __init__(self, start, end, visited, path, score):
