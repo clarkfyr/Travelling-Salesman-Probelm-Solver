@@ -1,7 +1,12 @@
-import object
+"""
+Longest Path Approximation
+"""
+import data_structure as ds
 import copy
+import utility
+import time
 import dag
-import pdb
+
 
 def modified_bfs(graph, s):
 	"""take in a graph and the index of the starting vertex;
@@ -30,6 +35,7 @@ def modified_bfs(graph, s):
 			path[i].append(i)
 	return dist, path
 
+
 def find_fully_connected(graph):
 	"""find if there is a path that connect every vertex"""
 	vertices = graph.vertices
@@ -42,29 +48,13 @@ def find_fully_connected(graph):
 					return result
 	return None
 
+
 def find_longest_path(graph, s, t):
 	"""take in a graph and the index of the starting vertex and the index of the ending vertex;
 		return longest distance and path from s to t"""
 	dist_list, path_list = modified_bfs(graph, s)
 	return dist_list[t], path_list[t]
 
-def compute_score(graph, list_of_path):
-	"""take in a graph and a pathes and compute the score
-	under the assuption that the proposed soln is valid"""
-	vertices = graph.vertices
-	score = 0
-	base = 0
-	for v in list_of_path:
-		base += vertices[v].value
-	score += base * len(list_of_path)
-	return score
-
-def compute_score_full_assignment(graph, paths):
-	"""take in a graph and a full assignment lists of pathes and compute the total score of the given soln"""
-	total = 0
-	for path in paths:
-		total += compute_score(graph, path)
-	return total
 
 def highest_single_path(graph):
 	"""greedily find the single path with highest score in a graph"""
@@ -74,7 +64,7 @@ def highest_single_path(graph):
 		if v.value != 0:
 			paths = modified_bfs(graph, v.index)[1]
 			for p in paths:
-				score = compute_score(graph, p)
+				score = utility.compute_score(graph, p)
 				if score > highest_score:
 					highest_score_path = [p]
 					highest_score = score
@@ -82,10 +72,11 @@ def highest_single_path(graph):
 					highest_score_path.append(p)
 	return highest_score, highest_score_path
 
+
 def greedy_highest_path_approximation(graph):
 	"""use greedy algs to find an approximating path"""
 	def helper(prev_graph, prev_path):
-		curr_graph = object.delete_given_path(prev_graph, prev_path)
+		curr_graph = ds.delete_given_path(prev_graph, prev_path)
 		return_path = []
 		single_path = highest_single_path(curr_graph)[1]
 		if not single_path:
@@ -106,11 +97,12 @@ def greedy_highest_path_approximation(graph):
 	score = 0
 	final = None
 	for out in final_out:
-		s = compute_score_full_assignment(graph, out)
+		s = utility.compute_score_full_assignment(graph, out)
 		if s >= score:
 			score = s
 			final = out
 	return score, final
+
 
 def get_longest_path_in_scc(graph, s, t):
 	"""find longest path from s to t and all other paths in scc"""
@@ -139,7 +131,6 @@ def get_longest_path_in_scc(graph, s, t):
 				if (curr_path and len(curr_path) > length):
 					length = len(curr_path)
 					path = curr_path
-		pdb.set_trace()
 
 		if (path and len(path) > 0):
 			final_out.append(path)
@@ -148,6 +139,7 @@ def get_longest_path_in_scc(graph, s, t):
 		else:
 			run = False
 	return final_out
+
 
 def modified_bfs_in_scc(graph, s):
 	"""find longest path from s inside scc for given scc index"""
@@ -178,7 +170,6 @@ def modified_bfs_in_scc(graph, s):
 
 def find_longest_among_longest(dag, scc, starts, ends):
 	"""
-
 	:param starts: starting vertex indices
 	:param ends: ending vertex indices
 	:return:
@@ -194,28 +185,25 @@ def find_longest_among_longest(dag, scc, starts, ends):
 				end = j
 	return start, end, maxPath
 
-# if __name__ == '__main__':
-#     import time
-#     result = open('highest_single_path_approximation.txt', "w")
 
-#     for i in range(1, 601):
-#     	# if i in hard or i in easy or i in moderate:
-#     	# 	continue
-#         try:
-#             g = object.Graph("../inputs/unsolved/"+str(i)+".in")
-#             print str(i)+".in"
-#             if len(g.vertices) <= 50:
-# 	            start_time = time.time()
-# 	            path = greedy_highest_path_approximation(g)
-# 	            print path
-# 	            if path:
-# 		            result.write(str(i) + ". " + str(path[1]) + " score: " + str(path[0]))
-# 		            result.write("\n")
-# 	            print("--- %s seconds ---" % (time.time() - start_time))
-#         except (IOError):
-#             pass
-#         except (IndexError):
-#             pass
+# Test
+def run():
+	result = open('highest_single_path_approximation.txt', "w")
+
+	for i in range(1, 601):
+		try:
+			g = ds.Graph("../inputs/unsolved/"+str(i)+".in")
+			print str(i)+".in"
+			if len(g.vertices) <= 50:
+				start_time = time.time()
+				path = greedy_highest_path_approximation(g)
+				print path
+				if path:
+					result.write(str(i) + ". " + str(path[1]) + " score: " + str(path[0]))
+					result.write("\n")
+				print("--- %s seconds ---" % (time.time() - start_time))
+		except (IOError, IndexError):
+			pass
 
 g = dag.DAG("../inputs/unsolved/332.in")
 ps = get_longest_path_in_scc(g,20,43)
