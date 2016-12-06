@@ -2,8 +2,6 @@ import dag
 import data_structure as ds
 import random
 import utility
-from joblib import Parallel, delayed
-import multiprocessing
 import time
 
 
@@ -132,6 +130,3 @@ def run(p):
             print("--- %s seconds to solve graph---" % (time.time() - start_time))
         except (IOError):
             pass
-
-num_cores = multiprocessing.cpu_count()
-Parallel(n_jobs=num_cores)(delayed(run)(i) for i in range(72, 73))
