@@ -314,10 +314,12 @@ def run(i):
     except (IndexError):
         pass
 
-# def test_run():
-#     g = DAG("../inputs/test_input_1.in")
-#     sol = g.solve()
-#     print(sol[1])
+def test_run():
+    start = time.time()
+    g = DAG("../inputs/dag_exact/10.in")
+    sol = g.solve()
+    print(sol[1])
+    print(time.time() - start)
 
 # g = DAG("../inputs/test_input_1.in")
 
