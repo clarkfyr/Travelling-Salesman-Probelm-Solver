@@ -369,10 +369,6 @@ def run(p):
         except (IndexError):
             pass
 
-
-
-
-
 # import time
 #     result = open('new_dag.txt', "a")
 #     for i in range(p, p+1):
@@ -418,5 +414,5 @@ def run(p):
 #         except (IOError):
 #             pass
 
-num_cores = multiprocessing.cpu_count()
-Parallel(n_jobs=num_cores)(delayed(run)(i) for i in range(0, 601))
+# num_cores = multiprocessing.cpu_count()
+# Parallel(n_jobs=num_cores)(delayed(run)(i) for i in range(0, 601))
